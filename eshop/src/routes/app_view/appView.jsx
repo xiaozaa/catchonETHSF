@@ -13,6 +13,12 @@ async function initializeProxyContract(proxyAddr, logicAddr) {
   if (ENABLE_MOCK) {
     console.log("skipping initialize proxy contract");
   } else {
+    console.log(
+      "initializeProxyContract: proxy: ",
+      proxyAddr,
+      " logicAddr: ",
+      logicAddr
+    );
     await initProxyContract(proxyAddr, logicAddr);
   }
 }
@@ -27,14 +33,9 @@ export function AppView() {
   const { adminAddr, appMeta } = location.state;
   console.log("appMeta", appMeta);
   if (appMeta.addr.toLowerCase() === urlContractAddr.toLowerCase()) {
-    initializeProxyContract(appMeta.addr, appMeta.logicAddr)
-  }
-  else {
-    assert(
-      0,
-      `Cannot find state for AppView`
-    );
-
+    initializeProxyContract(appMeta.addr, appMeta.logicAddress);
+  } else {
+    assert(0, `Cannot find state for AppView`);
   }
 
   //TODO: repeat code in utils

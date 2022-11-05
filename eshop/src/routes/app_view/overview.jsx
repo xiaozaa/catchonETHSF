@@ -23,6 +23,7 @@ export async function loader({ params }) {
   const proxyAddr = params.proxyAddress;
   const storeMetaData = await getMetaDataOfProxy(proxyAddr);
   const productIdList = await getItemIdList(proxyAddr);
+  console.log("productIdList: ", productIdList);
 
   const productInfoList = [];
   for (const productId in productIdList) {
@@ -38,6 +39,7 @@ export async function loader({ params }) {
       id: productId,
     });
   }
+  console.log("productInfoList: ", productInfoList);
   return {
     metaData: storeMetaData,
     itemList: productInfoList,
@@ -51,6 +53,7 @@ export const Overview = () => {
   const { adminAddr, appMeta } = location.state;
 
   console.log("Overview contract", proxyAddr);
+  console.log("Item list: ", itemList);
 
   return (
     <>
@@ -72,7 +75,14 @@ export const Overview = () => {
         </TableContainer>
       </div>
       <Divider></Divider>
-      <Button>Add</Button>
+      <Button
+        component={NavLink}
+        id={"add-product-button"}
+        to={"../addProduct"}
+        state={{ adminAddr: adminAddr, appMeta: appMeta, proxyAddr: proxyAddr }}
+      >
+        Add
+      </Button>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
@@ -81,6 +91,7 @@ export const Overview = () => {
               <TableCell align="right">Supply</TableCell>
               <TableCell align="right">Balance</TableCell>
               <TableCell align="right">Sales</TableCell>
+              <TableCell align="right">Detail</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
