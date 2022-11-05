@@ -10,9 +10,13 @@ import { Overview, loader as overViewLoader } from "./routes/app_view/overview";
 import { Support } from "./routes/app_view/support";
 import { Index } from "./routes/app_view/index";
 import { AppCreate } from "./routes/appcreate";
-import { Lab } from "./routes/lab";
+import { Lab, action as LabAction } from "./routes/lab";
 import { ProductDetail } from "./routes/app_view/productDetail";
 import { EditProduct } from "./routes/app_view/editProduct";
+import {
+  AddProduct,
+  action as addProductAction,
+} from "./routes/app_view/addProduct";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +28,7 @@ const router = createBrowserRouter([
     path: "/lab",
     //element: <LandPage />,
     element: <Lab />,
+    action: LabAction,
   },
   {
     path: "/applist",
@@ -54,6 +59,12 @@ const router = createBrowserRouter([
       {
         path: "edit/:id",
         element: <EditProduct />,
+      },
+
+      {
+        path: "addProduct",
+        element: <AddProduct />,
+        action: addProductAction,
       },
 
       /*
