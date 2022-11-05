@@ -1,10 +1,10 @@
-import MintModal, { modalRef } from "./components/mintModal";
+import OperateModal, { modalRef } from "./components/operateModal";
 
 function App(props) {
 
   return (
     <div>
-      <MintModal ref={modalRef} />
+      <OperateModal ref={modalRef} />
     </div>
   );
 }

@@ -1,20 +1,20 @@
 import { setButtonText } from './utils';
-import { setMintInfo, showMintModal } from './components/operateModal';
+import { showBurnModal } from './components/operateModal';
 import { getContractInfo } from './status';
 import { getWalletAddress } from './reafactored_util/wallet/wallet';
-export const updateMintButton = () => {
-    const mintButtons = [
-        ...document.querySelectorAll("[id^='mint-button']"),
-        ...document.querySelectorAll("a[href*='#mint-button']")
+export const updateBurnButton = () => {
+    const burnButtons = [
+        ...document.querySelectorAll("[id^='burn-button']"),
+        ...document.querySelectorAll("a[href*='#burn-button']")
     ]
-    if (mintButtons) {
-        console.log(mintButtons);
+    if (burnButtons) {
+        console.log(burnButtons);
 
-        mintButtons.forEach((mintButton) => {
-            mintButton.href = "#"
-            mintButton.onclick = async () => {
-                const initialBtnText = mintButton.textContent;
-                const splitID = mintButton.id.split(' ');
+        burnButtons.forEach((burnButton) => {
+            burnButton.href = "#"
+            burnButton.onclick = async () => {
+                const initialBtnText = burnButton.textContent;
+                const splitID = burnButton.id.split(' ');
                 if (splitID.length <= 1) {
                     alert("Invalid button ID, please fix your butthon settings");
                     return
@@ -31,25 +31,25 @@ export const updateMintButton = () => {
                 const tokenId = splitID[1];
                 console.log("Token ID", tokenId);
 
-                setButtonText(mintButton, "Loading...")
+                setButtonText(burnButton, "Loading...")
                 try {
-                    // const quantity = getMintQuantity();
+                    // const quantity = getburnQuantity();
                     const address = await getWalletAddress()
                     const info = await getContractInfo(tokenId);
                     // const info = await getContractInfo();
-                    console.log('updateMintButton', address, info);
+                    console.log('updateburnButton', address, info);
                     if (address) {
-                        showMintModal(tokenId, info);
+                        showBurnModal(tokenId, info);
                     }
                     else {
-                        console.log("Please connect wallet before mint.")
+                        console.log("Please connect wallet before burn.")
                     }
                 } catch (e) {
-                    console.log("Error on pressing mint")
+                    console.log("Error on pressing burn")
                     console.error(e)
-                    alert(`Error on mint: ${e}`)
+                    alert(`Error on burn: ${e}`)
                 }
-                setButtonText(mintButton, initialBtnText)
+                setButtonText(burnButton, initialBtnText)
             }
         })
     }
