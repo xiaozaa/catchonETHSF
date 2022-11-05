@@ -109,8 +109,8 @@ export const setProxySetSaleInfo = async (proxyAddr, tokenId, price, maxSupply, 
   return await callFunction(proxyAddr, "setSaleInfo", [tokenId, price, maxSupply, isAllowlist, merkleTree], 0, true);
 };
 
-export const setProxyMint = async (proxyAddr, to, tokenId, amount, merkleProof) => {
-  return await callFunction(proxyAddr, "mint", [to, tokenId, amount, merkleProof], 0, true);
+export const setProxyMint = async (proxyAddr, tokenId, amount) => {
+  return await callFunction(proxyAddr, "mint", [tokenId, amount], 0, true);
 };
 
 export const setProxyBurn = async (proxyAddr, tokenId, amount) => {
