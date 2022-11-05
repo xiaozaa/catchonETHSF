@@ -1,0 +1,33 @@
+#create-body {
+        margin: auto;
+        width: 50%;
+        border: 2px solid white;
+        padding: 10px;
+        text-align: center;
+}
+
+.button-container {
+        display: flex;
+        margin: auto;
+        width: 50%;
+        text-transform: none;
+}
+
+#create-op-button, #cancle-op-button {
+        text-transform: none;
+        color: white;
+        margin:auto;
+}
+
+#create-op-button {
+        background-color: green;
+}
+
+#cancle-op-button {
+        background-color: red;
+}
+
+input {
+        width: 80px;
+}
+
