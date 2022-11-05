@@ -16,7 +16,7 @@ const chainAddress = {
     chainId: 11155111,
     factoryAddr: "0x942d0529c8478AB991D68280229142Cb7fE89A75",
     erc721LogicAddr: "",
-    ecomerceLogicAddr: "0xe9881925B4Bc0aa390Ce12630864D7835C03184F", // with counter
+    ecomerceLogicAddr: "0xF8A7a09821bE27CD4f6394E1a82646eD4e6c88aB", // with counter
   },
 };
 
