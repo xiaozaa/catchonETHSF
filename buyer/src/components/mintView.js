@@ -42,7 +42,7 @@ export const MintView = ({ setStep, proof, info, setTxHash, tokenId }) => {
                     }}>
                         MINT
                     </Button>
-                    <a>{info.totalSupply} out of {info.maxSupply} minted</a>
+                    {/* <a>{info.totalSupply} out of {info.maxSupply} minted</a> */}
                     {/* {txHash && <a
                         target="_blank"
                         rel="noreferrer"
