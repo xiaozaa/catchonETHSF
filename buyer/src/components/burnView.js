@@ -12,21 +12,21 @@ import { setProxyBurn } from "../reafactored_util/contract_access_object/writerC
 import { txnStatusChecker } from "../reafactored_util/componentHelper";
 import { getWalletAddress } from "../reafactored_util/wallet/wallet";
 
-export const BurnView = ({ setStep, proof, info, setTxHash, tokenId }) => {
+export const BurnView = ({ setStep, proof, info, setTxHash, tokenId, owned, setBurnt }) => {
     const [quantity, setQuantity] = useState(1);
 
     const [errorInfo, setErrorInfo] = useState("")
     const [txnStatus, setTxnStatus] = useState(null);
     useEffect(() => {
         if (txnStatus === "DONE") {
-            setStep(4);
+            setStep(2);
         }
     },);
     return (
         <div>
             <CardContent>
                 <div className="cardWrapper">
-                    <PlusMinusButton count={quantity} purchaseLimit={1} setCount={setQuantity} />
+                    <PlusMinusButton count={quantity} purchaseLimit={owned} setCount={setQuantity} />
                     <Button variant="outlined" onClick={async () => {
                         setTxnStatus("Waiting for approval");
                         const userAddr = await getWalletAddress();
@@ -35,6 +35,7 @@ export const BurnView = ({ setStep, proof, info, setTxHash, tokenId }) => {
                         console.log("CREATE txn", txn)
                         txnStatusChecker(txn, setTxnStatus);
                         setTxHash(txn)
+                        setBurnt(quantity);
                     }}>
                         BRUN
                     </Button>

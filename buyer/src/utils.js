@@ -56,6 +56,7 @@ export const convertWeiToETH = (wei) => {
 }
 
 export const etherscanLink = () => {
+    return "https://sepolia.etherscan.io/tx/";
     const chainID = getChainIdFromContract();
     switch (chainID) {
         case 1: return "https://etherscan.io/tx/";

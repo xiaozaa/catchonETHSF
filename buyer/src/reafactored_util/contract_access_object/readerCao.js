@@ -113,6 +113,11 @@ export const getProxyMintInfoByTokenID = async (proxyAddr, tokenId, currentRound
   return res;
 };
 
+export const getProxyBalanceByTokenID = async (proxyAddr, user, tokenId) => {
+  const res = await callViewFunction(proxyAddr, "balanceOf", [user, tokenId]);
+  return res;
+};
+
 /**
  * Returns proxy specific data.
  * TODO: fill XX with meaningful wording, e.g. getProxyPublicMintTime

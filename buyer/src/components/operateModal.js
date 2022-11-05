@@ -11,7 +11,8 @@ import { SoldOutView } from "./soldoutView";
 import { InfoView } from "./infoView";
 import { DoneView } from "./doneView";
 import { BurnView } from "./burnView";
-
+import { AddressView } from "./addressView";
+import { BurnDoneView } from "./burnDoneView";
 
 export const OperateModal = (props, ref) => {
     const [isOpen, setIsOpen] = useState(false)
@@ -23,13 +24,15 @@ export const OperateModal = (props, ref) => {
     const [soldOut, setSoldOut] = useState(false);
     const [tokenId, setTokenId] = useState(null);
     const [operate, setOperate] = useState(null);
+    const [owned, setOwned] = useState(null);
+    const [burnt, setBurnt] = useState(null);
     const handleClose = () => {
         setIsOpen(false);
         setStep(1);
     }
 
     useImperativeHandle(ref, () => ({
-        setIsOpen, setInfo, setSoldOut, setTokenId, setOperate
+        setIsOpen, setInfo, setSoldOut, setTokenId, setOperate, setOwned
     })
     )
     return (
@@ -63,9 +66,10 @@ export const OperateModal = (props, ref) => {
                                 <SoldOutView />
                                 :
                                 <div>
-                                    {info && <InfoView info={info} />}
-                                    {(step === 1) && <BurnView setStep={setStep} setProof={setProof} info={info} tokenId={tokenId} />}
-                                    {(step === 4) && <DoneView txHash={txHash} />}
+                                    You have own this token {owned}
+                                    {(step === 1) && <BurnView setStep={setStep} owned={owned} info={info} tokenId={tokenId} setTxHash={setTxHash} setBurnt={setBurnt} />}
+                                    {(step === 2) && <AddressView setStep={setStep} info={info} tokenId={tokenId} burnt={burnt} />}
+                                    {(step === 4) && <BurnDoneView txHash={txHash} />}
                                 </div>
 
                             }
@@ -91,7 +95,7 @@ export const showMintModal = (tokenId, info) => {
     }
 }
 
-export const showBurnModal = (tokenId, info) => {
+export const showBurnModal = (tokenId, info, owned) => {
     modalRef.current?.setIsOpen(true);
     modalRef.current?.setOperate("BURN");
     modalRef.current?.setTokenId(tokenId);
@@ -99,6 +103,7 @@ export const showBurnModal = (tokenId, info) => {
     if (info.stock === 0) {
         modalRef.current?.setSoldOut(true);
     }
+    modalRef.current?.setOwned(owned);
 }
 
 // export const setMintInfo = (info) => {

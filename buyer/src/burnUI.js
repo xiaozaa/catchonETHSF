@@ -2,6 +2,7 @@ import { setButtonText } from './utils';
 import { showBurnModal } from './components/operateModal';
 import { getContractInfo } from './status';
 import { getWalletAddress } from './reafactored_util/wallet/wallet';
+import { getProxyBalanceByTokenID } from './reafactored_util/contract_access_object/readerCao';
 export const updateBurnButton = () => {
     const burnButtons = [
         ...document.querySelectorAll("[id^='burnbutton']"),
@@ -36,10 +37,11 @@ export const updateBurnButton = () => {
                     // const quantity = getburnQuantity();
                     const address = await getWalletAddress()
                     const info = await getContractInfo(tokenId);
+                    const ownedNum = await getProxyBalanceByTokenID(window.CONTRACT_ADDRESS, address, tokenId);
                     // const info = await getContractInfo();
                     console.log('updateburnButton', address, info);
                     if (address) {
-                        showBurnModal(tokenId, info);
+                        showBurnModal(tokenId, info, ownedNum);
                     }
                     else {
                         console.log("Please connect wallet before burn.")
