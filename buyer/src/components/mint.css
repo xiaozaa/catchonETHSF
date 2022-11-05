@@ -1,0 +1,12 @@
+.cardWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.error-text{
+    width: 100%;
+    color: brown;
+}

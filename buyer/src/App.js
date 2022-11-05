@@ -1,9 +1,10 @@
+import MintModal, { modalRef } from "./components/mintModal";
 
 function App(props) {
 
   return (
     <div>
-      HELLOW WORLD
+      <MintModal ref={modalRef} />
     </div>
   );
 }
