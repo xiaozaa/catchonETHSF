@@ -4,8 +4,8 @@ import { getContractInfo } from './status';
 import { getWalletAddress } from './reafactored_util/wallet/wallet';
 export const updateMintButton = () => {
     const mintButtons = [
-        ...document.querySelectorAll("[id^='mint-button']"),
-        ...document.querySelectorAll("a[href*='#mint-button']")
+        ...document.querySelectorAll("[id^='mintbutton']"),
+        ...document.querySelectorAll("a[href*='#mintbutton']")
     ]
     if (mintButtons) {
         console.log(mintButtons);
@@ -14,7 +14,7 @@ export const updateMintButton = () => {
             mintButton.href = "#"
             mintButton.onclick = async () => {
                 const initialBtnText = mintButton.textContent;
-                const splitID = mintButton.id.split(' ');
+                const splitID = mintButton.id.split('-');
                 if (splitID.length <= 1) {
                     alert("Invalid button ID, please fix your butthon settings");
                     return

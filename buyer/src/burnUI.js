@@ -4,8 +4,8 @@ import { getContractInfo } from './status';
 import { getWalletAddress } from './reafactored_util/wallet/wallet';
 export const updateBurnButton = () => {
     const burnButtons = [
-        ...document.querySelectorAll("[id^='burn-button']"),
-        ...document.querySelectorAll("a[href*='#burn-button']")
+        ...document.querySelectorAll("[id^='burnbutton']"),
+        ...document.querySelectorAll("a[href*='#burnbutton']")
     ]
     if (burnButtons) {
         console.log(burnButtons);
@@ -14,7 +14,7 @@ export const updateBurnButton = () => {
             burnButton.href = "#"
             burnButton.onclick = async () => {
                 const initialBtnText = burnButton.textContent;
-                const splitID = burnButton.id.split(' ');
+                const splitID = burnButton.id.split('-');
                 if (splitID.length <= 1) {
                     alert("Invalid button ID, please fix your butthon settings");
                     return
