@@ -1,26 +1,50 @@
 body {
-    /* background-color: #1c1f2f; */
+  /* background-color: #1c1f2f; */
+}
+
+.banner {
+  padding-top: 10%;
+  padding-left: 10%;
 }
 
 .line-one {
-    padding-top: 20%;
-    padding-left: 20%;
+  font-weight: bold;
+  font-size: 5rem;
 }
 
 .line-two {
-    padding-left: 1%;
+  font-weight: 200;
+  font-size: 2.2rem;
+  padding-left: 10px;
 }
 
 .flex-container {
-    display: flex;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin: 2%;
 }
 
 .space-padder {
-    padding-right: 40%;
+  margin-right: 2%;
+  /* padding-right: 40%; */
+}
+
+.icon-space {
+  padding: 0 10px;
+}
+
+.connect-space {
+  padding-right: 5px;
 }
 
 #connect-button {
-    color: white;
-    background-color: #cf9134;
-   height: 30px;
+  color: white;
+  background-color: black;
+  height: 2.4rem;
+  border-radius: 0.5rem;
+  text-transform: unset;
+  font-weight: 300;
+  font-size: 1rem;
 }
