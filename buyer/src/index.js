@@ -3,15 +3,25 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { init } from './top';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+const createDOMElement = () => {
+  const body = document.getElementsByTagName('body')[0];
+  const div = Object.assign(document.createElement('div'), {
+    id: "root",
+  });
+  body.appendChild(div);
+  return div;
+}
+
+export const renderAppContainer = () => {
+  ReactDOM.render(<React.StrictMode><App /></React.StrictMode>, createDOMElement());
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderAppContainer();
+  init();
+});
+
 reportWebVitals();
