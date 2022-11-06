@@ -9,3 +9,8 @@
 .rightPart {
     width: 50%;
 }
+
+#copy-button {
+    background-color: black;
+    margin-left : 80%;
+}

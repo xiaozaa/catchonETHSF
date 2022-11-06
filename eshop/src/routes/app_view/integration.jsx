@@ -1,6 +1,8 @@
 import "../../css/integration.css";
-
-import { CopyBlock, dracula } from "react-code-blocks";
+import top from "./script-top.png";
+import bottom from "./script-bottom.png";
+import { CodeBlock, dracula } from "react-code-blocks";
+import { Button } from "@mui/material";
 
 export function Integration() {
   const code =
@@ -16,7 +18,9 @@ export function Integration() {
             <span>Step 1.</span>
             <span>Choose a eCommerce wesite template at Webflow.</span>
           </div>
-          <div className="rightPart"></div>
+          <div className="rightPart">
+            <img src={top} alt="Italian Trulli" />
+          </div>
         </div>
         <div className="step">
           <div className="leftPart">
@@ -27,13 +31,22 @@ export function Integration() {
             </span>
           </div>
           <div className="rightPart">
-            <CopyBlock
+            <CodeBlock
               text={code}
               language="html"
               showLineNumbers={true}
               theme={dracula}
               codeBlock
             />
+            <Button
+              id={"copy-button"}
+              onClick={async () => {
+                await navigator.clipboard.writeText(code);
+                alert("Copied!");
+              }}
+            >
+              Copy
+            </Button>
           </div>
         </div>
         <div className="step">
@@ -44,7 +57,9 @@ export function Integration() {
               eCommerce and start erarning!
             </span>
           </div>
-          <div className="rightPart"></div>
+          <div className="rightPart">
+            <img src={bottom} alt="Italian Trulli" />
+          </div>
         </div>
       </div>
     </>
