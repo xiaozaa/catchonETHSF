@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { LandPage } from "./routes/landing";
+import { App, loader as AppLoader } from "./routes/app";
 import { AppList, loader as AppListLoader } from "./routes/applist";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AppView, loader as appViewLoader } from "./routes/app_view/appView";
@@ -30,6 +31,11 @@ const router = createBrowserRouter([
     //element: <LandPage />,
     element: <Lab />,
     action: LabAction,
+  },
+  {
+    path: "/app",
+    element: <App />,
+    loader: AppLoader,
   },
   {
     path: "/applist",

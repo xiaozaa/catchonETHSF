@@ -14,7 +14,26 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
+import { Outlet, useLocation } from "react-router-dom";
+
+// import { ENABLE_MOCK } from "../utils/constants";
+// import Button from "@mui/material/Button";
+
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { initProxyContract } from "../utils/reafactored_util/wallet/wallet";
+import assert from "assert";
+
+// import Tabs from '@mui/material/Tabs';
+// import Tab from '@mui/material/Tab';
+// import Typography from '@mui/material/Typography';
+// import Box from '@mui/material/Box';
+import BasicTabs from "../utils/tabs.jsx";
+
 import "../css/applist.css";
+import "../css/app.css";
 import { getWalletAddress } from "../utils/reafactored_util/wallet/wallet";
 import {
   getListOfAppsOwnedBy,
@@ -63,6 +82,24 @@ async function getData() {
   };
 }
 
+async function initializeProxyContract(proxyAddr, logicAddr) {
+  if (ENABLE_MOCK) {
+    console.log("skipping initialize proxy contract");
+  } else {
+    console.log(
+      "initializeProxyContract: proxy: ",
+      proxyAddr,
+      " logicAddr: ",
+      logicAddr
+    );
+    await initProxyContract(proxyAddr, logicAddr);
+  }
+}
+
+//   export async function loader({ params }) {
+//     return params.proxyAddress;
+//   }
+
 export async function loader() {
   return await getData();
 }
@@ -72,31 +109,125 @@ export const App = () => {
 
   console.log("appData: ", appData);
 
+  const urlContractAddr = useLoaderData();
+  const location = useLocation();
+  // const { adminAddr, appMeta } = location.state; // adminAddr,
+  const appMeta = appData[0];
+  console.log("appMeta", appMeta);
+  initializeProxyContract(appMeta.addr, appMeta.logicAddress);
+
+  //TODO: repeat code in utils
+  const abbreviateAddr = (addr) => {
+    return (
+      addr.substring(0, 6) +
+      "..." +
+      addr.substring(addr.length - 4)
+    ).toUpperCase();
+  };
+
   return (
     <div>
       <div className="app-list-top-container">
-        <h1>SUPER</h1>
+        <h1>SUPERUSER</h1>
         <Button
           component={NavLink}
           id={"create-button"}
           to={"/app-create"}
           state={{ adminAddr: adminAddr }}
         >
-          Create
+          NEW STORE
         </Button>
+      </div>
+      <div className="select-app">
+        <Button component={NavLink} to={"/applist"}>
+          <ArrowBackIcon />
+          <span className="directory">Directory</span>
+        </Button>
+        <div id="view-top">
+          <h3> {`${appMeta.name}: ${abbreviateAddr(appMeta.addr)}`} </h3>
+        </div>
+        <div id="viewContainer">
+          <div id="sidebar">
+            <nav>
+              <List>
+                <ListItem
+                  disablePadding
+                  component={NavLink}
+                  to={"overview"}
+                  state={{ adminAddr: adminAddr, appMeta: appMeta }}
+                >
+                  <ListItemButton id="appview-sidebar-item">
+                    GreekSneaker
+                  </ListItemButton>
+                </ListItem>
+                <ListItem
+                  disablePadding
+                  component={NavLink}
+                  to={"support"}
+                  state={{ adminAddr: adminAddr, appMeta: appMeta }}
+                >
+                  <ListItemButton id="appview-sidebar-item">
+                    Supreme II
+                  </ListItemButton>
+                </ListItem>
+                <ListItem
+                  disablePadding
+                  component={NavLink}
+                  to={"Shipping"}
+                  state={{ adminAddr: adminAddr, appMeta: appMeta }}
+                >
+                  <ListItemButton id="appview-sidebar-item">
+                    <Button
+                      component={NavLink}
+                      id={"create-button"}
+                      to={"/app-create"}
+                      state={{ adminAddr: adminAddr }}
+                    >
+                      NEW STORE
+                    </Button>
+                  </ListItemButton>
+                </ListItem>
+              </List>
+            </nav>
+          </div>
+          <div id="detail">
+            <BasicTabs />
+            {/* <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <Tabs
+                value={value}
+                onChange={handleChange}
+                aria-label="basic tabs example"
+              >
+                <Tab label="Item One" {...a11yProps(0)} />
+                <Tab label="Item Two" {...a11yProps(1)} />
+                <Tab label="Item Three" {...a11yProps(2)} />
+              </Tabs>
+            </Box>
+            <TabPanel value={value} index={0}>
+              Item One
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              Item Two
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+              Item Three
+            </TabPanel> */}
+            <Outlet context={[adminAddr, appMeta]} />
+          </div>
+        </div>
       </div>
       <nav>
         {appData.length ? (
           <>
             <div>
               <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                  <TableHead>
-                    <TableRow>
-                      <StyledTableCell>Name</StyledTableCell>
-                      <StyledTableCell align="right">Address</StyledTableCell>
+                <Table sx={{ minWidth: 100 }} aria-label="customized table">
+                  <TableHead className="hidden">
+                    <TableRow className="hidden">
+                      <StyledTableCell>DIRECTORY</StyledTableCell>
+                      {/* <StyledTableCell align="right">Address</StyledTableCell>
                       <StyledTableCell align="right">Date</StyledTableCell>
-                      <StyledTableCell align="right">Type</StyledTableCell>
+                      <StyledTableCell align="right">Type</StyledTableCell> */}
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -114,7 +245,7 @@ export const App = () => {
                             {row.name}
                           </Button>
                         </StyledTableCell>
-                        <StyledTableCell align="right">
+                        {/* <StyledTableCell align="right">
                           {row.addr}
                         </StyledTableCell>
                         <StyledTableCell align="right">
@@ -124,7 +255,7 @@ export const App = () => {
                         </StyledTableCell>
                         <StyledTableCell align="right">
                           {row.logicAddress}
-                        </StyledTableCell>
+                        </StyledTableCell> */}
                       </StyledTableRow>
                     ))}
                   </TableBody>
