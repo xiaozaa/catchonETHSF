@@ -44,16 +44,18 @@ export const AddressView = ({ setStep, tokenId, burnt }) => {
                                             ContractAddr: window.CONTRACT_ADDRESS,
                                             Redeemed: burnt
                                         })
-                                        body = JSON.stringify(addresArray);
+                                        body = JSON.stringify({ AddressData: addresArray });
                                     }
                                 }
                                 else {
                                     body = JSON.stringify({
-                                        WalletAddress: walletAddress,
-                                        Address: address,
-                                        TokenId: tokenId,
-                                        ContractAddr: window.CONTRACT_ADDRESS,
-                                        Redeemed: burnt
+                                        AddressData: {
+                                            WalletAddress: walletAddress,
+                                            Address: address,
+                                            TokenId: tokenId,
+                                            ContractAddr: window.CONTRACT_ADDRESS,
+                                            Redeemed: burnt
+                                        }
                                     });
                                 }
                                 await fetch(API_DB + "ship/" + window.CONTRACT_ADDRESS, {
