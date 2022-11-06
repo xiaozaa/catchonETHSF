@@ -98,18 +98,19 @@ export const getProxyIsMintOn = async (proxyAddr, round) => {
   return res;
 };
 
-export const getProxyCurrentRoundByTokenID = async (proxyAddr, tokenId) => {
-  const res = await callViewFunction(proxyAddr, "currentRound", [tokenId]);
-  return res;
-};
+// export const getProxyCurrentRoundByTokenID = async (proxyAddr, tokenId) => {
+//   const res = await callViewFunction(proxyAddr, "currentRound", [tokenId]);
+//   return res;
+// };
 
 export const getProxyIsMintOnByTokenID = async (proxyAddr, tokenId) => {
   const res = await callViewFunction(proxyAddr, "isMintOn", [tokenId]);
+  console.log("MINT", tokenId, res);
   return res;
 };
 
-export const getProxyMintInfoByTokenID = async (proxyAddr, tokenId, currentRound) => {
-  const res = await callViewFunction(proxyAddr, "mintInfo", [tokenId, currentRound]);
+export const getProxyPriceByTokenID = async (proxyAddr, tokenId) => {
+  const res = await callViewFunction(proxyAddr, "mintPrice", [tokenId]);
   return res;
 };
 

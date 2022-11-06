@@ -110,6 +110,7 @@ export const setProxySetSaleInfo = async (proxyAddr, tokenId, price, maxSupply, 
 };
 
 export const setProxyMint = async (proxyAddr, tokenId, amount) => {
+  console.log("MINT", tokenId, amount);
   return await callFunction(proxyAddr, "mint", [tokenId, amount], 0, true);
 };
 

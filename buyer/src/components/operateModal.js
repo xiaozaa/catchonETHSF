@@ -90,9 +90,9 @@ export const showMintModal = (tokenId, info) => {
     modalRef.current?.setOperate("MINT");
     modalRef.current?.setTokenId(tokenId);
     modalRef.current?.setInfo(info);
-    if (info.stock === 0) {
-        modalRef.current?.setSoldOut(true);
-    }
+    // if (info.stock === 0) {
+    //     modalRef.current?.setSoldOut(true);
+    // }
 }
 
 export const showBurnModal = (tokenId, info, owned) => {
@@ -100,9 +100,6 @@ export const showBurnModal = (tokenId, info, owned) => {
     modalRef.current?.setOperate("BURN");
     modalRef.current?.setTokenId(tokenId);
     modalRef.current?.setInfo(info);
-    if (info.stock === 0) {
-        modalRef.current?.setSoldOut(true);
-    }
     modalRef.current?.setOwned(owned);
 }
 

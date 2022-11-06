@@ -1,4 +1,4 @@
-import { getProxyCurrentRoundByTokenID, getProxyIsMintOnByTokenID, getProxyMintInfoByTokenID } from "./reafactored_util/contract_access_object/readerCao";
+import { getProxyPriceByTokenID, getProxyIsMintOnByTokenID } from "./reafactored_util/contract_access_object/readerCao";
 
 let recursiveCheck = undefined;
 
@@ -16,15 +16,11 @@ export const getContractInfoRecur = async (contract, tokenId) => {
 }
 
 export const getContractInfo = async (tokenId) => {
-    const currentRound = await getProxyCurrentRoundByTokenID(window.CONTRACT_ADDRESS, tokenId);
     const isMintOn = await getProxyIsMintOnByTokenID(window.CONTRACT_ADDRESS, tokenId);
-    const saleInfo = await getProxyMintInfoByTokenID(window.CONTRACT_ADDRESS, tokenId, currentRound);
+    const price = await getProxyPriceByTokenID(window.CONTRACT_ADDRESS, tokenId);
     const info = {
-        currentRound,
         isMintOn,
-        price: saleInfo[0],
-        stock: saleInfo[1],
-        isAllowlist: saleInfo[2]
+        price: price,
     }
     return info
 }

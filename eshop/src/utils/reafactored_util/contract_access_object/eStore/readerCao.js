@@ -43,6 +43,12 @@ export async function getSupplyOf(productId, proxyAddr) {
     };
     return mockMap[productId];
   }
+
+  return await callViewFunction(proxyAddr, "supplyLimit", [productId]);
+}
+
+export async function getNumMinted(productId, proxyAddr) {
+  return await callViewFunction(proxyAddr, "tokenMinted", [productId]);
 }
 
 export async function getBalanceOf(productId, proxyAddr) {
@@ -53,6 +59,18 @@ export async function getBalanceOf(productId, proxyAddr) {
     };
     return mockMap[productId];
   }
+  const supply = await getSupplyOf(productId, proxyAddr);
+  const numMinted = await getNumMinted(productId, proxyAddr);
+  return supply - numMinted;
+}
+
+export async function getImgUrl(productId, proxyAddr) {
+  const tokenUri = await getUrl(productId, proxyAddr);
+  console.log("Fetched uri of token ", productId, "is: ", tokenUri);
+  const jsonObj = await fetchUrlObj(tokenUri);
+  console.log("Fetched json object: ", jsonObj);
+
+  return jsonObj.img;
 }
 
 export async function getSalesAmountOf(productId, proxyAddr) {
