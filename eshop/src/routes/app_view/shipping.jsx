@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 
 import * as _ from "lodash";
+import { getNameOf } from "../../utils/reafactored_util/contract_access_object/eStore/readerCao";
 
 export const API_DB = "https://11xykht95a.execute-api.us-west-1.amazonaws.com/";
 
@@ -41,6 +42,14 @@ export async function loader({ params }) {
 
   const records = await fetchShippingRecordsOfProxy(proxyAddr);
 
+  const renamedRecords = await Promise.all(
+    records.map(async (i) => {
+      const name = await getNameOf(i.TokenId, proxyAddr);
+      i.name = name;
+      return i;
+    })
+  );
+
   console.log("fetched shipping records: ", records);
 
   const mockRecords = [
@@ -57,7 +66,7 @@ export async function loader({ params }) {
 
   return {
     proxyAddr: proxyAddr,
-    shippingRecords: records,
+    shippingRecords: renamedRecords,
   };
 }
 
@@ -72,10 +81,10 @@ export function Shipping() {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>WalletAddress</TableCell>
-              <TableCell align="right">TokenId</TableCell>
-              <TableCell align="right">Address</TableCell>
-              <TableCell align="right">Redeemed</TableCell>
+              <TableCell align="left">Buyer</TableCell>
+              <TableCell align="left">Name</TableCell>
+              <TableCell align="left">Shipping Address</TableCell>
+              <TableCell align="left">Amounts</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -87,9 +96,9 @@ export function Shipping() {
                 <TableCell component="th" scope="row">
                   {row.WalletAddress}
                 </TableCell>
-                <TableCell align="right">{row.TokenId}</TableCell>
-                <TableCell align="right">{row.Address}</TableCell>
-                <TableCell align="right">{row.Redeemed}</TableCell>
+                <TableCell align="left">{row.name}</TableCell>
+                <TableCell align="left">{row.Address}</TableCell>
+                <TableCell align="left">{row.Redeemed}</TableCell>
               </TableRow>
             ))}
           </TableBody>
