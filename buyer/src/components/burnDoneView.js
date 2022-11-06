@@ -9,7 +9,7 @@ export const BurnDoneView = ({ txHash }) => {
             <CardContent>
                 <div className="cardWrapper">
                     <Typography >
-                        Congratuations! You successfully redeemed!
+                        Congratuations! You successfully redeemed your physical items!
                     </Typography>
                     {txHash && <a
                         target="_blank"

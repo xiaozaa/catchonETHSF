@@ -37,14 +37,12 @@ export const OperateModal = (props, ref) => {
     )
     return (
         <div>
-
             <Dialog onClose={handleClose} open={isOpen}>
                 {operate === "MINT" && <div>
-                    <DialogTitle>Mint NFT</DialogTitle>
+                    <DialogTitle>Buy Digital Items</DialogTitle>
                     <Card sx={{ minWidth: 475, minWidth: 475 }}>
                         <CardContent>
                             {soldOut ?
-
                                 <SoldOutView />
                                 :
                                 <div>
@@ -59,14 +57,13 @@ export const OperateModal = (props, ref) => {
                     </Card>
                 </div>}
                 {operate === "BURN" && <div>
-                    <DialogTitle>Burn NFT</DialogTitle>
+                    <DialogTitle>Redeem Physical Items</DialogTitle>
                     <Card sx={{ minWidth: 475, minWidth: 475 }}>
                         <CardContent>
                             {soldOut ?
                                 <SoldOutView />
                                 :
                                 <div>
-                                    You have own this token {owned}
                                     {(step === 1) && <BurnView setStep={setStep} owned={owned} info={info} tokenId={tokenId} setTxHash={setTxHash} setBurnt={setBurnt} />}
                                     {(step === 2) && <AddressView setStep={setStep} info={info} tokenId={tokenId} burnt={burnt} />}
                                     {(step === 4) && <BurnDoneView txHash={txHash} />}

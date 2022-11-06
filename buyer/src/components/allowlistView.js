@@ -13,7 +13,7 @@ export const AllowlistView = ({ setStep, setProof, info, tokenId }) => {
             <CardContent>
                 <div className="cardWrapper">
                     <Typography >
-                        {isSuccess ? "Please click the following button to check your allowlist status." : "Sorry, you are not eligiable to mint for this Round."}
+                        {isSuccess ? "Please check if you are eligible to buy." : "Sorry, you are not eligiable to mint for this Round."}
                     </Typography>
                     <Button variant="outlined" onClick={async () => {
                         setLoading(true);

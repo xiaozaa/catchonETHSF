@@ -26,6 +26,9 @@ export const BurnView = ({ setStep, proof, info, setTxHash, tokenId, owned, setB
         <div>
             <CardContent>
                 <div className="cardWrapper">
+                    <Typography>
+                        You have {owned} item in your wallets. Please select how many items you want to redeem.
+                    </Typography>
                     <PlusMinusButton count={quantity} purchaseLimit={owned} setCount={setQuantity} />
                     <Button variant="outlined" onClick={async () => {
                         setTxnStatus("Waiting for approval");
@@ -37,7 +40,7 @@ export const BurnView = ({ setStep, proof, info, setTxHash, tokenId, owned, setB
                         setTxHash(txn)
                         setBurnt(quantity);
                     }}>
-                        BRUN
+                        Redeem
                     </Button>
                     {/* <a>{info.totalSupply} out of {info.maxSupply} minted</a> */}
                     <Typography>
