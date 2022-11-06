@@ -30,7 +30,7 @@ export const LandPage = () => {
                 await initFactoryContract();
                 const appList = await getListOfAppsOwnedBy(userAddr);
                 if (appList.length == 0) {
-                  navigate("/app-create", { state: { adminAddr: userAddr } });
+                  navigate("/app-create");
                 } else {
                   navigate("/applist");
                 }
