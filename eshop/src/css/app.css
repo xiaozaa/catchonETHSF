@@ -4,10 +4,10 @@
 }
 
 #create-button {
-  color: white;
+  color: gray;
   text-decoration: none;
   text-transform: none;
-  background-color: #cf9134;
+  background-color: white;
   height: 50%;
   text-align: center;
 }
@@ -18,4 +18,18 @@
 
 .hidden {
   display: none;
+}
+
+.MuiTableCell-root.MuiTableCell-body {
+  background-color: white !important;
+  color: black !important;
+}
+
+.MuiTableCell-root.MuiTableCell-body a {
+  background-color: white !important;
+  color: black !important;
+}
+
+.button-unset {
+  text-transform: unset;
 }

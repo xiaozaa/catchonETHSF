@@ -26,11 +26,16 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { initProxyContract } from "../utils/reafactored_util/wallet/wallet";
 import assert from "assert";
 
+import Main from "../components/main";
 // import Tabs from '@mui/material/Tabs';
 // import Tab from '@mui/material/Tab';
 // import Typography from '@mui/material/Typography';
 // import Box from '@mui/material/Box';
-import BasicTabs from "../utils/tabs.jsx";
+import LabTabs from "../components/tabs.js";
+
+import { SlPaypal } from "react-icons/sl";
+import { SlPlus } from "react-icons/sl";
+import { SlLayers } from "react-icons/sl";
 
 import "../css/applist.css";
 import "../css/app.css";
@@ -128,16 +133,77 @@ export const App = () => {
   return (
     <div>
       <div className="app-list-top-container">
-        <h1>SUPERUSER</h1>
-        <Button
-          component={NavLink}
-          id={"create-button"}
-          to={"/app-create"}
-          state={{ adminAddr: adminAddr }}
-        >
-          NEW STORE
-        </Button>
+        <nav>
+          {appData.length ? (
+            <>
+              <div>
+                <TableContainer component={Paper}>
+                  <Table sx={{ maxWidth: 200 }} aria-label="customized table">
+                    <TableBody>
+                      {appData.map((row, index) => (
+                        <StyledTableRow
+                          key={row.name}
+                          className={"app-list-row"}
+                        >
+                          <StyledTableCell component="th" scope="row">
+                            <SlPaypal />
+                            <Button
+                              sz={{ textTransform: "unset" }}
+                              className="button-unset"
+                              component={NavLink}
+                              to={`/appview/${row.addr}`}
+                              state={{
+                                adminAddr: adminAddr,
+                                appMeta: row,
+                              }}
+                            >
+                              {row.name}
+                            </Button>
+                          </StyledTableCell>
+
+                          {/* <StyledTableCell align="right">
+                          {row.addr}
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                          {new Date(
+                            parseInt(row.createTime) * 1000
+                          ).toLocaleString()}
+                        </StyledTableCell>
+                        <StyledTableCell align="right">
+                          {row.logicAddress}
+                        </StyledTableCell> */}
+                        </StyledTableRow>
+                      ))}
+                      <StyledTableRow>
+                        <StyledTableCell>
+                          <SlPlus />
+                          <Button
+                            component={NavLink}
+                            id={"create-button"}
+                            to={"/app-create"}
+                            state={{ adminAddr: adminAddr }}
+                          >
+                            Add store
+                          </Button>
+                        </StyledTableCell>
+                      </StyledTableRow>
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </div>
+            </>
+          ) : (
+            <dev>Whoops, no apps</dev>
+          )}
+        </nav>
+        <h4>
+          ethereum <SlLayers /> address
+        </h4>
       </div>
+      <div>
+        <Main />
+      </div>
+
       <div className="select-app">
         <Button component={NavLink} to={"/applist"}>
           <ArrowBackIcon />
@@ -191,7 +257,7 @@ export const App = () => {
             </nav>
           </div>
           <div id="detail">
-            <BasicTabs />
+            <LabTabs />
             {/* <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
               <Tabs
                 value={value}
@@ -221,15 +287,7 @@ export const App = () => {
           <>
             <div>
               <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 100 }} aria-label="customized table">
-                  <TableHead className="hidden">
-                    <TableRow className="hidden">
-                      <StyledTableCell>DIRECTORY</StyledTableCell>
-                      {/* <StyledTableCell align="right">Address</StyledTableCell>
-                      <StyledTableCell align="right">Date</StyledTableCell>
-                      <StyledTableCell align="right">Type</StyledTableCell> */}
-                    </TableRow>
-                  </TableHead>
+                <Table sx={{ maxWidth: 100 }} aria-label="customized table">
                   <TableBody>
                     {appData.map((row, index) => (
                       <StyledTableRow key={row.name} className={"app-list-row"}>
