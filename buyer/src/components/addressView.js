@@ -32,7 +32,7 @@ export const AddressView = ({ setStep, tokenId, burnt }) => {
                             .then((response) => response.json())
                             .then(async (response) => {
                                 const dataFromDb = _.get(response, ["Item", "AddressData"]);
-                                console.log("ABI", dataFromDb);
+                                console.log("AddressData", dataFromDb);
                                 var body = "";
                                 if (dataFromDb) {
                                     const addresArray = JSON.parse(dataFromDb);
@@ -49,13 +49,13 @@ export const AddressView = ({ setStep, tokenId, burnt }) => {
                                 }
                                 else {
                                     body = JSON.stringify({
-                                        AddressData: {
+                                        AddressData: [{
                                             WalletAddress: walletAddress,
                                             Address: address,
                                             TokenId: tokenId,
                                             ContractAddr: window.CONTRACT_ADDRESS,
                                             Redeemed: burnt
-                                        }
+                                        }]
                                     });
                                 }
                                 await fetch(API_DB + "ship/" + window.CONTRACT_ADDRESS, {
