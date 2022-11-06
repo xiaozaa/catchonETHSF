@@ -14,7 +14,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 export function ProductDetail() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { adminAddr, appMeta, productInfo } = location.state;
+  const { appMeta, productInfo } = location.state;
 
   return (
     <>
@@ -49,7 +49,6 @@ export function ProductDetail() {
         component={NavLink}
         to={`../edit/${productInfo.id}`}
         state={{
-          adminAddr: adminAddr,
           appMeta: appMeta,
           productInfo: productInfo,
         }}

@@ -76,12 +76,7 @@ export const AppList = () => {
     <div>
       <div className="app-list-top-container">
         <h1>Apps</h1>
-        <Button
-          component={NavLink}
-          id={"create-button"}
-          to={"/app-create"}
-          state={{ adminAddr: adminAddr }}
-        >
+        <Button component={NavLink} id={"create-button"} to={"/app-create"}>
           Create
         </Button>
       </div>

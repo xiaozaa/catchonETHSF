@@ -18,7 +18,7 @@ export async function action({ request, params }) {
 export function AddProduct() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { adminAddr, appMeta, proxyAddr } = location.state;
+  const { appMeta, proxyAddr } = location.state;
 
   const [name, setName] = useState("product name");
   const [description, setDescription] = useState("Product description");
