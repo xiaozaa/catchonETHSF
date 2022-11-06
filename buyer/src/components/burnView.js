@@ -30,7 +30,7 @@ export const BurnView = ({ setStep, proof, info, setTxHash, tokenId, owned, setB
                     <Button variant="outlined" onClick={async () => {
                         setTxnStatus("Waiting for approval");
                         const userAddr = await getWalletAddress();
-                        const txn = await setProxyBurn(window.CONTRACT_ADDRESS, userAddr, tokenId, quantity, proof);
+                        const txn = await setProxyBurn(window.CONTRACT_ADDRESS, tokenId, quantity);
                         setTxnStatus("LOADING");
                         console.log("CREATE txn", txn)
                         txnStatusChecker(txn, setTxnStatus);
