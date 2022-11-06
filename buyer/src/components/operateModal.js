@@ -19,7 +19,7 @@ export const OperateModal = (props, ref) => {
 
     const [step, setStep] = useState(1)
     const [proof, setProof] = useState(undefined);
-    const [info, setInfo] = useState(null);
+    const [info, setInfo] = useState({ price: 0 });
     const [txHash, setTxHash] = useState(undefined);
     const [soldOut, setSoldOut] = useState(false);
     const [tokenId, setTokenId] = useState(null);
@@ -47,8 +47,8 @@ export const OperateModal = (props, ref) => {
                                 :
                                 <div>
                                     {info && <InfoView info={info} />}
-                                    {(step === 1) && <AllowlistView setStep={setStep} setProof={setProof} info={info} tokenId={tokenId} />}
-                                    {(step === 3) && <MintView setStep={setStep} proof={proof} info={info} txHash={txHash} setTxHash={setTxHash} tokenId={tokenId} />}
+                                    {/* {(step === 1) && <AllowlistView setStep={setStep} setProof={setProof} info={info} tokenId={tokenId} />} */}
+                                    {(step === 1) && <MintView setStep={setStep} proof={proof} info={info} txHash={txHash} setTxHash={setTxHash} tokenId={tokenId} />}
                                     {(step === 4) && <DoneView txHash={txHash} />}
                                 </div>
 
