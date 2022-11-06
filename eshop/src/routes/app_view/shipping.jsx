@@ -10,6 +10,23 @@ import {
 } from "@mui/material";
 
 async function fetchShippingRecordsOfProxy(proxyAddr) {
+  /*
+    return await fetch(API_DB + "ship/" + contractAddr, {
+        method: "GET",
+      })
+        .then((response) => response.json())
+        .then(async (response) => {
+          const dataFromDb = _.get(response, ["Item", "Abi"]);
+          console.log("ABI", dataFromDb);
+          if (dataFromDb) {
+            abi[contractAddr] = JSON.parse(dataFromDb);
+            return JSON.parse(dataFromDb);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+        */
   return [];
 }
 

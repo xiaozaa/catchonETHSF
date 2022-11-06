@@ -70,7 +70,7 @@ export const Overview = () => {
 
   const displayCards = itemList.map((item) => {
     return (
-      <Box className="productCard">
+      <Box class="productCard">
         <Card>
           <CardContent>
             <img src={item.imgUrl} width="250" height="250" />
