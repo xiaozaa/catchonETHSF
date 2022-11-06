@@ -18,6 +18,7 @@ import {
   action as addProductAction,
 } from "./routes/app_view/addProduct";
 import { Shipping, loader as ShippingLoader } from "./routes/app_view/shipping";
+import { Integration } from "./routes/app_view/integration";
 
 const router = createBrowserRouter([
   {
@@ -76,6 +77,11 @@ const router = createBrowserRouter([
         path: "shipping",
         element: <Shipping />,
         loader: ShippingLoader,
+      },
+
+      {
+        path: "integration",
+        element: <Integration />,
       },
     ],
   },

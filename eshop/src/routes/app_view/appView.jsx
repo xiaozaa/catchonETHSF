@@ -90,6 +90,16 @@ export function AppView() {
                   Shipping
                 </ListItemButton>
               </ListItem>
+              <ListItem
+                disablePadding
+                component={NavLink}
+                to={"integration"}
+                state={{ adminAddr: adminAddr, appMeta: appMeta }}
+              >
+                <ListItemButton id="appview-sidebar-item">
+                  Integration
+                </ListItemButton>
+              </ListItem>
             </List>
           </nav>
         </div>
