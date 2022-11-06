@@ -1,0 +1,21 @@
+.app-list-top-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+#create-button {
+  color: white;
+  text-decoration: none;
+  text-transform: none;
+  background-color: #cf9134;
+  height: 50%;
+  text-align: center;
+}
+
+.app-list-row:hover {
+  color: red;
+}
+
+.hidden {
+  display: none;
+}
