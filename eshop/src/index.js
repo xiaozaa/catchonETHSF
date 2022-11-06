@@ -17,6 +17,7 @@ import {
   AddProduct,
   action as addProductAction,
 } from "./routes/app_view/addProduct";
+import { Shipping, loader as ShippingLoader } from "./routes/app_view/shipping";
 
 const router = createBrowserRouter([
   {
@@ -67,21 +68,14 @@ const router = createBrowserRouter([
         action: addProductAction,
       },
 
-      /*
-      {
-        path: "config",
-        element: <Config />,
-        loader: configLoader,
-      },
-      {
-        path: "allowlist",
-        element: <DataView />,
-        loader: allowlistLoader,
-      },
-      */
       {
         path: "support",
         element: <Support />,
+      },
+      {
+        path: "shipping",
+        element: <Shipping />,
+        loader: ShippingLoader,
       },
     ],
   },

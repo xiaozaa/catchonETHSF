@@ -80,6 +80,16 @@ export function AppView() {
                   Suppport
                 </ListItemButton>
               </ListItem>
+              <ListItem
+                disablePadding
+                component={NavLink}
+                to={"Shipping"}
+                state={{ adminAddr: adminAddr, appMeta: appMeta }}
+              >
+                <ListItemButton id="appview-sidebar-item">
+                  Shipping
+                </ListItemButton>
+              </ListItem>
             </List>
           </nav>
         </div>

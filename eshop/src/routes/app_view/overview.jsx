@@ -9,15 +9,22 @@ import {
   TableHead,
   Divider,
   Button,
+  Card,
+  CardContent,
+  Typography,
+  CardActions,
 } from "@mui/material";
 import { getMetaDataOfProxy } from "../../utils/reafactored_util/contract_access_object/readerCao";
 import {
   getBalanceOf,
+  getImgUrl,
   getItemIdList,
   getNameOf,
+  getNumMinted,
   getSalesAmountOf,
   getSupplyOf,
 } from "../../utils/reafactored_util/contract_access_object/eStore/readerCao";
+import { Box } from "@mui/system";
 
 export async function loader({ params }) {
   const proxyAddr = params.proxyAddress;
@@ -31,12 +38,17 @@ export async function loader({ params }) {
     const supply = await getSupplyOf(productId, proxyAddr);
     const balance = await getBalanceOf(productId, proxyAddr);
     const salesAmount = await getSalesAmountOf(productId, proxyAddr);
+    const numMinted = await getNumMinted(productId, proxyAddr);
+    const imgUrl = await getImgUrl(productId, proxyAddr);
+    console.log("imgUrl: ", imgUrl);
     productInfoList.push({
       name: name,
       supply: supply,
       balance: balance,
+      numMinted: numMinted,
       salesAmount: salesAmount,
       id: productId,
+      imgUrl: imgUrl,
     });
   }
   console.log("productInfoList: ", productInfoList);
@@ -54,6 +66,25 @@ export const Overview = () => {
 
   console.log("Overview contract", proxyAddr);
   console.log("Item list: ", itemList);
+
+  const displayCards = itemList.map((item) => {
+    return (
+      <Box className="productCard">
+        <Card>
+          <CardContent>
+            <img src={item.imgUrl} width="500" height="600" />
+            <Typography variant="h3">{item.name}</Typography>
+            <span>
+              {item.numMinted} of {item.supply} sold
+            </span>
+          </CardContent>
+          <CardActions>
+            <Button>share</Button>
+          </CardActions>
+        </Card>
+      </Box>
+    );
+  });
 
   return (
     <>
@@ -124,6 +155,8 @@ export const Overview = () => {
           </TableBody>
         </Table>
       </TableContainer>
+
+      <div> {displayCards} </div>
     </>
   );
 };
