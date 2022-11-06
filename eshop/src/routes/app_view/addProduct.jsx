@@ -111,13 +111,31 @@ export function AddProduct() {
           <br />
         </label>
         <p>
-          <button type="submit">Create</button>
+          <button
+            type="submit"
+            sx={{
+              fontWeight: "bolder",
+              backgroundColor: "white",
+              color: "black",
+              width: "100px",
+              padding: "20px",
+            }}
+            outlined
+          >
+            CREATE
+          </button>
         </p>
       </form>
 
       <Button
         id={"cancle-op-button"}
-        sx={{ fontWeight: "bold", backgroundColor: "black", color: "white" }}
+        sx={{
+          fontWeight: "bold",
+          backgroundColor: "black",
+          color: "white",
+          width: "100px",
+          padding: "10px",
+        }}
         onClick={() => {
           navigate(-1);
         }}
