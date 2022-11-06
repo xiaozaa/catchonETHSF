@@ -1,5 +1,4 @@
 import Button from "@mui/material/Button";
-import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import { SlDrawer } from "react-icons/sl";
 import { useNavigate } from "react-router-dom";
 import "../css/landing.css";
@@ -10,6 +9,7 @@ import {
   verifyAccount,
 } from "../utils/reafactored_util/wallet/wallet";
 import { FACTORY_CONTRACT_ADDRESS } from "../utils/reafactored_util/wallet/abiHelper";
+import { getListOfAppsOwnedBy } from "../utils/reafactored_util/contract_access_object/readerCao";
 
 export const LandPage = () => {
   let navigate = useNavigate();
@@ -28,7 +28,12 @@ export const LandPage = () => {
               const identityVerified = await verifyAccount();
               if (identityVerified) {
                 await initFactoryContract();
-                navigate("/applist");
+                const appList = await getListOfAppsOwnedBy(userAddr);
+                if (appList.length == 0) {
+                  navigate("/app-create");
+                } else {
+                  navigate("/applist");
+                }
               } else {
                 //TODO: Failure
                 throw new Error("WTF do you want to do?");
