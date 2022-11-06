@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Typography from '@mui/material/Typography';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 import CircularProgress from '@mui/material/CircularProgress';
 import { PlusMinusButton } from './plusMinusButton';
 import { convertWeiToETH, etherscanLink } from '../utils'
@@ -22,14 +24,36 @@ export const MintView = ({ setStep, proof, info, setTxHash, tokenId }) => {
             setStep(4);
         }
     },);
+    const handleChange = (event) => {
+        setQuantity(event.target.value);
+    };
     return (
         <div>
             <CardContent>
                 <div className="cardWrapper">
-                    <PlusMinusButton count={quantity} purchaseLimit={Number(5)} setCount={setQuantity} />
-                    <Typography>
-                        Total price: {convertWeiToETH((Number(info.price) * quantity).toString())}ETH
-                    </Typography>
+                    <div className="select-wrapper">
+                        <div>{Number(info.supply) - Number(info.minted)} of {info.supply} available</div>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={quantity}
+                            label="Age"
+                            onChange={handleChange}
+                        >
+                            <MenuItem value={1}>1</MenuItem>
+                            <MenuItem value={2}>2</MenuItem>
+                            <MenuItem value={3}>3</MenuItem>
+                            <MenuItem value={4}>4</MenuItem>
+                            <MenuItem value={5}>5</MenuItem>
+                        </Select>
+                        {/* <PlusMinusButton count={quantity} purchaseLimit={Number(5)} setCount={setQuantity} /> */}
+                    </div>
+
+                    <div className="price-tag">
+                        <div className="small">Subtotal:</div>
+                        <div className="bold">{convertWeiToETH((Number(info.price) * quantity).toString())} ETH</div>
+                    </div>
+
                     <Button variant="outlined" onClick={async () => {
                         setTxnStatus("Waiting for approval");
                         const userAddr = await getWalletAddress();
@@ -40,7 +64,7 @@ export const MintView = ({ setStep, proof, info, setTxHash, tokenId }) => {
                         setTxHash(txn)
                         // MintTransaction(quantity, proof, setTxHash, setMintState, setErrorInfo);
                     }}>
-                        MINT
+                        BUY NOW
                     </Button>
                     {/* <a>{info.totalSupply} out of {info.maxSupply} minted</a> */}
                     {/* {txHash && <a
@@ -55,8 +79,8 @@ export const MintView = ({ setStep, proof, info, setTxHash, tokenId }) => {
                     </Typography>
                     <a className="error-text">{errorInfo}</a>
                 </div>
-            </CardContent>
-        </div>
+            </CardContent >
+        </div >
 
     )
 }

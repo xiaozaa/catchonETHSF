@@ -39,7 +39,7 @@ export const OperateModal = (props, ref) => {
         <div>
             <Dialog onClose={handleClose} open={isOpen}>
                 {operate === "MINT" && <div>
-                    <DialogTitle>Buy Digital Items</DialogTitle>
+                    <DialogTitle>Purchase</DialogTitle>
                     <Card sx={{ minWidth: 475, minWidth: 475 }}>
                         <CardContent>
                             {soldOut ?

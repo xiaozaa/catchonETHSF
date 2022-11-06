@@ -114,6 +114,16 @@ export const getProxyPriceByTokenID = async (proxyAddr, tokenId) => {
   return res;
 };
 
+export const getProxyMintedByTokenID = async (proxyAddr, tokenId) => {
+  const res = await callViewFunction(proxyAddr, "tokenMinted", [tokenId]);
+  return res;
+};
+
+export const getProxySupplyByTokenID = async (proxyAddr, tokenId) => {
+  const res = await callViewFunction(proxyAddr, "supplyLimit", [tokenId]);
+  return res;
+};
+
 export const getProxyBalanceByTokenID = async (proxyAddr, user, tokenId) => {
   const res = await callViewFunction(proxyAddr, "balanceOf", [user, tokenId]);
   return res;
