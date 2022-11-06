@@ -9,8 +9,29 @@ import {
   TableHead,
 } from "@mui/material";
 
+import * as _ from "lodash";
+
+export const API_DB = "https://11xykht95a.execute-api.us-west-1.amazonaws.com/";
+
 async function fetchShippingRecordsOfProxy(proxyAddr) {
-  return [];
+  return await fetch(API_DB + "ship/" + proxyAddr, {
+    method: "GET",
+  })
+    .then((response) => response.json())
+    .then(async (response) => {
+      const dataFromDb = _.get(response, ["Item", "AddressData"]);
+      console.log("Addrss Data: ", dataFromDb);
+      var body = "";
+      if (dataFromDb) {
+        return dataFromDb;
+      } else {
+        console.log("No address data fetched, returning empty array");
+        return [];
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 }
 
 export async function loader({ params }) {
@@ -24,7 +45,7 @@ export async function loader({ params }) {
 
   const mockRecords = [
     {
-      UserWallet: "0x123456789002948575947398594",
+      WalletAddress: "0x123456789002948575947398594",
       ContractAddr: "0x24681012141618202224262830",
       Address: "123 Fake Ave, San Jose, CA 95110",
       Redeemed: 3,
@@ -36,7 +57,7 @@ export async function loader({ params }) {
 
   return {
     proxyAddr: proxyAddr,
-    shippingRecords: mockRecords,
+    shippingRecords: records,
   };
 }
 
@@ -45,13 +66,13 @@ export function Shipping() {
 
   return (
     <>
-      <h1>This is Shipping of Proxy Address: {proxyAddr}!</h1>
+      <h2>NFT Proxy Address for Shipping: {proxyAddr}!</h2>
 
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>UserWallet</TableCell>
+              <TableCell>WalletAddress</TableCell>
               <TableCell align="right">TokenId</TableCell>
               <TableCell align="right">Address</TableCell>
               <TableCell align="right">Redeemed</TableCell>
@@ -60,11 +81,11 @@ export function Shipping() {
           <TableBody>
             {shippingRecords.map((row) => (
               <TableRow
-                key={row.UserWallet}
+                key={row.WalletAddress}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {row.UserWallet}
+                  {row.WalletAddress}
                 </TableCell>
                 <TableCell align="right">{row.TokenId}</TableCell>
                 <TableCell align="right">{row.Address}</TableCell>

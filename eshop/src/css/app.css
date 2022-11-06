@@ -1,0 +1,65 @@
+.app-list-top-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+#create-button {
+  color: gray;
+  text-decoration: none;
+  text-transform: none;
+  background-color: white;
+  height: 50%;
+  text-align: center;
+}
+
+.app-list-row:hover {
+  color: red;
+}
+
+.hidden {
+  display: none;
+}
+
+#view-top {
+  float: right;
+}
+
+.listItem {
+  display: block;
+  text-align: left;
+  background-color: white !important;
+  color: black !important;
+}
+
+.MuiTableCell-root.MuiTableCell-body {
+  background-color: white !important;
+  color: black !important;
+}
+
+.MuiTableCell-root.MuiTableCell-body a {
+  background-color: white !important;
+  color: black !important;
+}
+
+.button-unset {
+  text-decoration: none;
+  text-transform: none;
+}
+
+.MuiList-root a {
+  font-family: "Kanit", sans-serif;
+  text-transform: none !important;
+  font-weight: bold;
+}
+
+.MuiList-root a > button {
+  font-family: "Kanit", sans-serif;
+  text-transform: none !important;
+  font-weight: bold;
+}
+
+.select-app > a {
+  font-family: "Kanit", sans-serif;
+  text-transform: none !important;
+  font-weight: bold;
+}

@@ -28,7 +28,8 @@ export const LandPage = () => {
               const identityVerified = await verifyAccount();
               if (identityVerified) {
                 await initFactoryContract();
-                navigate("/applist");
+                navigate("/app");
+                // REMOVED: /applist
               } else {
                 //TODO: Failure
                 throw new Error("WTF do you want to do?");
@@ -40,10 +41,10 @@ export const LandPage = () => {
           </Button>
         </div>
       </div>
-      <div class="banner">
-        <span className="line-one">CatchOn</span>
+      <div className="banner">
+        <span className="line-one">CATCHON</span>
         <br />
-        <span className="line-two">No-code solution for</span>
+        <span className="line-two">No-Code Solution for</span>
         <br />
         <span className="line-two">NFT eCommerce</span>
       </div>

@@ -6,7 +6,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { Form, useNavigate } from "react-router-dom";
-import "../css/appcreate.css";
+import "../css/productcreate.css";
 // import { addMockApp } from "../mockdata/mockData";
 // import { ENABLE_MOCK } from "../utils/constants";
 import {
@@ -29,38 +29,42 @@ import { txnStatusChecker } from "./componentHelper";
 //   return redirect(`/applist`);
 // }
 
-export function AppCreate() {
+export function ProductCreate() {
   const navigate = useNavigate();
-  const [storeName, setStoreName] = useState("Lorem ipsum");
-  const [tokenName, setTokenName] = useState("RARE");
-  const [tokenSymb, setTokenSymb] = useState("COIN");
-  const [collectionSize, setCollectionSize] = useState(null);
-  const [storeType, setStoreType] = useState("ESTORE");
+  const [productName, setProductName] = useState("Lorem ipsum");
+  const [totalSupply, setTotalSupply] = useState("RARE");
+  const [pricePerItem, setPricePerItem] = useState("COIN");
+  const [imageURL, setImageURL] = useState(null);
+  const [productType, setProductType] = useState("ESTORE");
   const [txnStatus, setTxnStatus] = useState(null);
+  const [description, setDescription] = useState("Enter text");
 
-  const handleStoreNameChange = (event) => {
-    setStoreName(event.target.value);
+  const handleProductNameChange = (event) => {
+    setProductName(event.target.value);
   };
-  const handleTokenNameChange = (event) => {
-    setTokenName(event.target.value);
+  const handleTotalSupplyChange = (event) => {
+    setTotalSupply(event.target.value);
   };
-  const handleTokenSymbolChange = (event) => {
-    setTokenSymb(event.target.value);
+  const handlePricePerItemChange = (event) => {
+    setPricePerItem(event.target.value);
   };
-  const handleStoreTypeChange = (event) => {
-    setStoreType(event.target.value);
+  const handleProductTypeChange = (event) => {
+    setProductType(event.target.value);
   };
-  const handleCollectionSizeChange = (event) => {
-    setCollectionSize(event.target.value);
+  const handleImageURLChange = (event) => {
+    setImageURL(event.target.value);
+  };
+  const handleDescriptionChange = (event) => {
+    setDescription(event.target.value);
   };
 
   return (
     <div className="body-outline">
       <div id="create-body">
-        <h1 className="italicize">Get started</h1>
+        <h1 className="italicize">Create product</h1>
         <p className="italicize">
-          This is a description of why you should create a web3 enabled store, a
-          unique NFT collection, or a NFT Membership Program.
+          This is a description of the information required to create a product:
+          name, quantity, price, token type, image url, and description.
         </p>
         <Form method="post" id="create-form">
           <Box sx={{ minWidth: 200 }}>
@@ -70,21 +74,23 @@ export function AppCreate() {
               fullWidth
               id="outlined-basic"
               className="box-text-space"
-              label="Store name"
+              label="Product name"
               variant="outlined"
-              value={storeName}
-              onChange={handleStoreNameChange}
+              value={productName}
+              onChange={handleProductNameChange}
             />
             <br />
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Store type</InputLabel>
+              <InputLabel id="demo-simple-select-label">
+                Product type
+              </InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 className="box-text-space"
-                value={storeType}
-                label="Store type"
-                onChange={handleStoreTypeChange}
+                value={productType}
+                label="Product type"
+                onChange={handleProductTypeChange}
               >
                 <MenuItem value={"ESTORE"}>eCommerce Store</MenuItem>
                 <MenuItem value={"ERC721"}>NFT Collection</MenuItem>
@@ -92,60 +98,82 @@ export function AppCreate() {
               </Select>
             </FormControl>
             <br />
-            <div className="hidden">
+            <div className="nothidden">
               <TextField
                 fullWidth
                 id="outlined-basic"
                 className="box-text-space"
-                label="Token name"
+                label="Total supply"
                 variant="outlined"
-                value={tokenName}
-                onChange={handleTokenNameChange}
+                value={totalSupply}
+                onChange={handleTotalSupplyChange}
               />
               <br />
               <TextField
                 fullWidth
                 id="outlined-basic"
                 className="box-text-space"
-                label="Token symbol"
+                label="Price per item"
                 variant="outlined"
-                value={tokenSymb}
-                onChange={handleTokenSymbolChange}
+                value={pricePerItem}
+                onChange={handlePricePerItemChange}
               />
-              <br />
-              {storeType === "ERC721" && (
+              {/* <br /> */}
+              {/* {productType === "ERC721" && (
                 <TextField
                   fullWidth
                   id="outlined-basic"
                   className="box-text-space"
-                  label="Collection size"
+                  label="Image URL"
                   variant="outlined"
-                  value={collectionSize}
-                  onChange={handleCollectionSizeChange}
+                  value={imageURL}
+                  onChange={handleImageURLChange}
                 />
-              )}
+              )} */}
               <br />
+              <TextField
+                fullWidth
+                id="outlined-basic"
+                className="box-text-space"
+                label="Image URL"
+                variant="outlined"
+                value={imageURL}
+                onChange={handleImageURLChange}
+              />
+              <br />
+              <TextField
+                fullWidth
+                id="outlined-basic"
+                className="box-text-space"
+                label="Description"
+                variant="outlined"
+                value={description}
+                onChange={handleDescriptionChange}
+              />
             </div>
             <div className={"button-container"}>
               <Button
                 id={"create-op-button"}
                 onClick={async () => {
                   setTxnStatus("Waiting for approval...");
-                  if (storeType === "ERC721") {
+                  if (productType === "ERC721") {
                     const txn = await createERC721Proxy(
-                      storeName,
-                      tokenName,
-                      tokenSymb,
-                      collectionSize
+                      productName,
+                      totalSupply,
+                      pricePerItem,
+                      imageURL,
+                      description
                     );
                     setTxnStatus("In progress...");
                     console.log("CREATE txn", txn);
                     txnStatusChecker(txn, setTxnStatus);
-                  } else if (storeType === "ESTORE") {
+                  } else if (productType === "ESTORE") {
                     const txn = await createECOMERCEProxy(
-                      storeName,
-                      tokenName,
-                      tokenSymb
+                      productName,
+                      totalSupply,
+                      pricePerItem,
+                      imageURL,
+                      description
                     );
                     setTxnStatus("In progress...");
                     console.log("CREATE txn", txn);
@@ -153,7 +181,7 @@ export function AppCreate() {
                   }
                 }}
               >
-                Create store
+                Confirm details
               </Button>
             </div>
             <div className="button-container">

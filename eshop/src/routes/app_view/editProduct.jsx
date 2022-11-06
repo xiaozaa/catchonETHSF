@@ -73,12 +73,12 @@ export function EditProduct() {
       </Form>
 
       <Button
-        id={"cancle-op-button"}
+        id={"cancel-op-button"}
         onClick={() => {
           navigate(-1);
         }}
       >
-        Cancle
+        Back
       </Button>
     </>
   );

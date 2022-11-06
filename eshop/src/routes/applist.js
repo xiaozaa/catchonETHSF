@@ -75,14 +75,15 @@ export const AppList = () => {
   return (
     <div>
       <div className="app-list-top-container">
-        <h1>Apps</h1>
+        <h1>Store Directory</h1>
         <Button
+          className="bold-font"
           component={NavLink}
           id={"create-button"}
           to={"/app-create"}
           state={{ adminAddr: adminAddr }}
         >
-          Create
+          Add New Store
         </Button>
       </div>
       <nav>
@@ -93,10 +94,10 @@ export const AppList = () => {
                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
                   <TableHead>
                     <TableRow>
-                      <StyledTableCell>Name</StyledTableCell>
-                      <StyledTableCell align="right">Address</StyledTableCell>
-                      <StyledTableCell align="right">Date</StyledTableCell>
-                      <StyledTableCell align="right">Type</StyledTableCell>
+                      <StyledTableCell align="center">Name</StyledTableCell>
+                      <StyledTableCell align="center">Address</StyledTableCell>
+                      <StyledTableCell align="center">Date</StyledTableCell>
+                      <StyledTableCell align="center">Type</StyledTableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -105,7 +106,7 @@ export const AppList = () => {
                         <StyledTableCell component="th" scope="row">
                           <Button
                             component={NavLink}
-                            to={`/appview/${row.addr}`}
+                            to={`/app/view/${row.addr}/overview`}
                             state={{
                               adminAddr: adminAddr,
                               appMeta: row,
@@ -133,7 +134,7 @@ export const AppList = () => {
             </div>
           </>
         ) : (
-          <dev>Whoops, no apps</dev>
+          <dev>Please create a Store and try again :)</dev>
         )}
       </nav>
     </div>

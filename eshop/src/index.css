@@ -1,16 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
+  font-family: "Kanit", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* background-color:#1c1f2f; */
   /* color: white; */
 }
 
+a {
+  font-family: "Kanit", sans-serif;
+  text-transform: none !important;
+  font-weight: 500;
+}
+
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -20,37 +29,53 @@ code {
 }
 
 .app-list-row:hover {
-  background-color: #363a4e;
+  /* background-color: #363a4e; */
 }
 
 #appview-sidebar-item:hover {
-  background-color: #51557c;
+  /* background-color: #51557c; */
+}
+.view-shift {
+  display: flex;
 }
 
+.view-header {
+  flex-direction: horizontal;
+}
+.right-move {
+  justify-content: flex-end;
+}
 #sidebar {
-  width: 18rem;
-  height:100vh;
+  width: 200px;
+  height: 100vh;
+  /* position: absolute;
+  top: -800;
+  left: 800; */
   /* background-color: #1c1f2f; */
   border-right: solid 1px #e3e3e3;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
-#sidebar > * {
-  padding-left: 2rem;
-  padding-right: 2rem;
-}
+/* #sidebar > * {
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
+} */
 
 #sidebar h1 {
+  width: 100%;
   font-size: 1rem;
   font-weight: 500;
   display: flex;
-  align-items: center;
+  align-items: left;
   margin: 0;
   padding: 1rem 2rem;
   border-top: 1px solid #e3e3e3;
   order: 1;
   line-height: 1;
+  color: gray;
+  font-weight: bold;
+  text-transform: none;
 }
 
 #sidebar h1::before {
@@ -58,6 +83,12 @@ code {
   margin-right: 0.5rem;
   position: relative;
   top: 1px;
+}
+
+#sidebar h1 :active {
+  text-decoration: underline;
+  color: black;
+  font-weight: bold;
 }
 
 #sidebar > div {
@@ -111,15 +142,18 @@ code {
 #sidebar nav {
   flex: 1;
   overflow: auto;
-  padding-top: 1rem;
+  padding-top: 0.1rem;
 }
 
 #sidebar nav a span {
-  float: right;
-  color: #eeb004;
+  float: left;
+  text-transform: none;
+  font-weight: bold;
+  /* color: #eeb004; */
 }
 #sidebar nav a.active span {
   color: inherit;
+  text-decoration: underline;
 }
 
 i {
@@ -127,6 +161,9 @@ i {
 }
 #sidebar nav .active i {
   color: inherit;
+  text-transform: none;
+  font-weight: bold;
+  text-decoration: underline;
 }
 
 #sidebar ul {
@@ -135,29 +172,33 @@ i {
   list-style: none;
 }
 
-
-#sidebar nav a {
+#viewSidebar nav a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  overflow: hidden;
-
+  overflow: visible;
+  text-decoration: italic;
   white-space: pre;
   border-radius: 8px;
   color: inherit;
   text-decoration: none;
   gap: 1rem;
+  color: gray;
+  font-weight: bold;
 }
 
-#sidebar nav a.active {
-  background: #343861;
-  color: white;
+#viewSidebar nav a.active {
+  /* background: #343861; */
+  background: transparent;
+  color: black;
+  font-weight: bolder;
+  text-decoration: underline;
 }
-
 
 #detail {
   flex: 1;
-  padding: 2rem 4rem;
+  padding: 0.5rem 1.5rem;
+  margin-top: 2rem;
   width: 100%;
 }
 
@@ -165,4 +206,45 @@ i {
   opacity: 0.25;
   transition: opacity 200ms;
   transition-delay: 200ms;
+}
+
+label {
+}
+
+label > input {
+  width: 100%;
+  height: 20px;
+  margin: 10px 10px;
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+label > span {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 15px 10px;
+}
+
+.MuiButtonBase-root.MuiListItemButton-root {
+  display: block;
+  /* justify-content: flex-start; */
+  font-style: italic;
+  font-size: 1.3rem;
+  max-width: 200px;
+}
+
+#create-product {
+  font-style: italic;
+}
+
+.MuiCardContent-root {
+  padding: 0;
+}
+
+.MuiButtonBase-root-MuiButton-root {
+  text-transform: none;
+}
+
+#cancle-op-button:hover {
+  color: black;
 }

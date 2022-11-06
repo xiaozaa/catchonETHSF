@@ -23,26 +23,56 @@ export const AddressView = ({ setStep, tokenId, burnt }) => {
                     <TextField fullWidth id="outlined-basic" label="address" variant="outlined" value={address}
                         onChange={handleAddressChange} />
                     <Button onClick={async () => {
+
                         const walletAddress = await getWalletAddress();
-                        const body = {
-                            Address: address,
-                            TokenId: tokenId,
-                            ContractAddr: window.CONTRACT_ADDRESS,
-                            Redeemed: burnt
-                        }
-                        await fetch(API_DB + "ship/" + walletAddress, {
-                            method: "PUT",
-                            body: JSON.stringify(body),
-                            headers: {
-                                'Content-Type': 'application/json',
-                            }
+
+                        await fetch(API_DB + "ship/" + window.CONTRACT_ADDRESS, {
+                            method: "GET",
                         })
-                            .then(response => {
-                                return response
+                            .then((response) => response.json())
+                            .then(async (response) => {
+                                const dataFromDb = _.get(response, ["Item", "AddressData"]);
+                                console.log("AddressData", dataFromDb);
+                                var body = "";
+                                if (dataFromDb) {
+                                    dataFromDb.push({
+                                        WalletAddress: walletAddress,
+                                        Address: address,
+                                        TokenId: tokenId,
+                                        ContractAddr: window.CONTRACT_ADDRESS,
+                                        Redeemed: burnt
+                                    })
+                                    body = JSON.stringify({ AddressData: dataFromDb });
+                                }
+                                else {
+                                    body = JSON.stringify({
+                                        AddressData: [{
+                                            WalletAddress: walletAddress,
+                                            Address: address,
+                                            TokenId: tokenId,
+                                            ContractAddr: window.CONTRACT_ADDRESS,
+                                            Redeemed: burnt
+                                        }]
+                                    });
+                                }
+                                await fetch(API_DB + "ship/" + window.CONTRACT_ADDRESS, {
+                                    method: "PUT",
+                                    body,
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    }
+                                })
+                                    .then(response => {
+                                        return response
+                                    })
+                                    .catch(error => {
+                                        console.error(error);
+                                    });
                             })
-                            .catch(error => {
+                            .catch((error) => {
                                 console.error(error);
                             });
+
                         setStep(4);
                     }}>
                         Submit

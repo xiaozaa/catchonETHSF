@@ -3,11 +3,12 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { LandPage } from "./routes/landing";
+import { App, loader as AppLoader } from "./routes/app";
 import { AppList, loader as AppListLoader } from "./routes/applist";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AppView, loader as appViewLoader } from "./routes/app_view/appView";
 import { Overview, loader as overViewLoader } from "./routes/app_view/overview";
-import { Support } from "./routes/app_view/support";
+import { Support, loader as SupportLoader } from "./routes/app_view/support";
 import { Index } from "./routes/app_view/index";
 import { AppCreate } from "./routes/appcreate";
 import { Lab, action as LabAction } from "./routes/lab";
@@ -18,6 +19,7 @@ import {
   action as addProductAction,
 } from "./routes/app_view/addProduct";
 import { Shipping, loader as ShippingLoader } from "./routes/app_view/shipping";
+import { Integration } from "./routes/app_view/integration";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +32,55 @@ const router = createBrowserRouter([
     //element: <LandPage />,
     element: <Lab />,
     action: LabAction,
+  },
+  {
+    path: "/app",
+    element: <App />,
+    loader: AppLoader,
+    children: [
+      {
+        path: "view/:proxyAddress",
+        element: <AppView />,
+        loader: appViewLoader,
+        children: [
+          { index: true, element: <Index /> },
+          {
+            path: "overview",
+            element: <Overview />,
+            loader: overViewLoader,
+          },
+          {
+            path: "detail/:id",
+            element: <ProductDetail />,
+          },
+
+          {
+            path: "edit/:id",
+            element: <EditProduct />,
+          },
+
+          {
+            path: "addProduct",
+            element: <AddProduct />,
+            action: addProductAction,
+          },
+
+          {
+            path: "support",
+            element: <Support />,
+          },
+          {
+            path: "shipping",
+            element: <Shipping />,
+            loader: ShippingLoader,
+          },
+          {
+            path: "integration",
+            element: <Integration />,
+          },
+        ],
+      },
+    ],
   },
   {
     path: "/applist",
@@ -76,6 +127,11 @@ const router = createBrowserRouter([
         path: "shipping",
         element: <Shipping />,
         loader: ShippingLoader,
+      },
+
+      {
+        path: "integration",
+        element: <Integration />,
       },
     ],
   },
