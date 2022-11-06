@@ -1,0 +1,71 @@
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.13;
+
+import "./ERC721Proxy.sol";
+
+error ProxyNonExist();
+error NoProxyOwnedBy(address);
+error NotImplemented();
+
+contract ERC721ProxyFactory {
+    struct AppMetaData {
+        string name;
+        uint256 createTime;
+        address logicAddress;
+        address owner;
+        bool exists;
+    }
+
+    mapping(address => AppMetaData) public metaDataByProxyAddr; // proxy addr -> AppMetaData
+    mapping(address => address[]) public proxyListByOwner; // owner -> proxy[];
+
+    function createProxy(
+        string memory name,
+        address logic,
+        bytes memory data
+    ) public returns (address proxyAddr) {
+        ERC721Proxy proxy = new ERC721Proxy(logic, data);
+        metaDataByProxyAddr[address(proxy)] = AppMetaData(
+            name,
+            block.timestamp,
+            logic,
+            msg.sender,
+            true
+        );
+        proxyListByOwner[msg.sender].push(address(proxy));
+        return address(proxy);
+    }
+
+    function getOwnerOfProxy(address proxyAddr) public view returns (address) {
+        if (!metaDataByProxyAddr[proxyAddr].exists) {
+            revert ProxyNonExist();
+        }
+        return metaDataByProxyAddr[proxyAddr].owner;
+    }
+
+    // TODO: this can be removed?
+    function getProxiesOwnedBy(address owner)
+        public
+        view
+        returns (address[] memory)
+    {
+        return proxyListByOwner[owner];
+    }
+
+    // TODO: this can be removed?
+    function getAppMetaData(address proxyAddr)
+        public
+        view
+        returns (AppMetaData memory)
+    {
+        return metaDataByProxyAddr[proxyAddr];
+    }
+
+    function updateTo(address proxyAddress, address newLogic)
+        public
+        returns (AppMetaData memory metaData)
+    {
+        revert NotImplemented();
+    }
+}
+
