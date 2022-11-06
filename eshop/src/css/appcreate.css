@@ -1,33 +1,74 @@
+.body-outline {
+  margin: 50px 0;
+}
+
 #create-body {
-        margin: auto;
-        width: 50%;
-        border: 2px solid white;
-        padding: 10px;
-        text-align: center;
+  margin: auto;
+  width: 60%;
+  border: 3px solid black;
+  border-radius: 5px;
+  padding: 30px;
+  text-align: left;
+}
+
+.italicize {
+  font-style: italic;
+  padding-left: 20px;
 }
 
 .button-container {
-        display: flex;
-        margin: auto;
-        width: 50%;
-        text-transform: none;
+  display: flex;
+  margin: auto;
+  width: 50%;
+  text-transform: none;
 }
 
-#create-op-button, #cancle-op-button {
-        text-transform: none;
-        color: white;
-        margin:auto;
+#create-op-button,
+#cancel-op-button {
+  text-transform: none;
+  margin: auto;
+  font-size: 1.1rem;
+  font-weight: 500;
 }
 
 #create-op-button {
-        background-color: green;
+  width: 100%;
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+  font-weight: bolder;
 }
 
-#cancle-op-button {
-        background-color: red;
+#cancel-op-button {
+  background-color: white;
+  color: black;
 }
 
 input {
-        width: 80px;
+  width: 80px;
 }
 
+/* .box-text-space {
+  margin: 0 0;
+} */
+
+.MuiInputBase-formControl {
+  margin: 20px 0;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.MuiTextField-root {
+  margin: 5px;
+}
+
+.MuiInputLabel-outlined {
+  margin: 6px 2px;
+  font-weight: bolder;
+  font-size: 1.44rem;
+  color: black;
+}
+
+.hidden {
+  display: none;
+}
