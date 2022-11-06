@@ -44,6 +44,15 @@ import {
   getListOfAppsOwnedBy,
   getMetaDataOfProxy,
 } from "../utils/reafactored_util/contract_access_object/readerCao";
+import {
+  getBalanceOf,
+  getImgUrl,
+  getItemIdList,
+  getNameOf,
+  getNumMinted,
+  getSalesAmountOf,
+  getSupplyOf,
+} from "../utils/reafactored_util/contract_access_object/eStore/readerCao";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -80,6 +89,39 @@ async function getData() {
         return metaObj;
       })
     );
+    console.log("applist", appList);
+    if (appList.length) {
+      await initializeProxyContract(appData[0].addr, appData[0].logicAddress);
+      const proxyAddr = appData[0].addr;
+      // const productIdList = await getItemIdList(proxyAddr);
+      // console.log("productIdList: ", productIdList);
+
+      // const productInfoList = [];
+      // for (const productId in productIdList) {
+      //   const name = await getNameOf(productId, proxyAddr);
+      //   console.log("name: ", name);
+      //   const supply = await getSupplyOf(productId, proxyAddr);
+      //   console.log("supply: ", supply);
+      //   const balance = await getBalanceOf(productId, proxyAddr);
+      //   console.log("balance: ", balance);
+      //   const salesAmount = await getSalesAmountOf(productId, proxyAddr);
+      //   console.log("salesAmount: ", salesAmount);
+      //   const numMinted = await getNumMinted(productId, proxyAddr);
+      //   console.log("numMinted: ", numMinted);
+      //   const imgUrl = await getImgUrl(productId, proxyAddr);
+      //   console.log("imgUrl: ", imgUrl);
+      //   productInfoList.push({
+      //     name: name,
+      //     supply: supply,
+      //     balance: balance,
+      //     numMinted: numMinted,
+      //     salesAmount: salesAmount,
+      //     id: productId,
+      //     imgUrl: imgUrl,
+      //   });
+      // }
+      // console.log("productInfoList: ", productInfoList);
+    }
   }
   return {
     appData: appData,
@@ -116,10 +158,7 @@ export const App = () => {
 
   const urlContractAddr = useLoaderData();
   const location = useLocation();
-  // const { adminAddr, appMeta } = location.state; // adminAddr,
   const appMeta = appData[0];
-  console.log("appMeta", appMeta);
-  initializeProxyContract(appMeta.addr, appMeta.logicAddress);
 
   //TODO: repeat code in utils
   const abbreviateAddr = (addr) => {
