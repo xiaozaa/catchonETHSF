@@ -25,6 +25,7 @@ import {
   getSupplyOf,
 } from "../../utils/reafactored_util/contract_access_object/eStore/readerCao";
 import { Box } from "@mui/system";
+import "../../css/overview.css";
 
 export async function loader({ params }) {
   const proxyAddr = params.proxyAddress;
@@ -72,7 +73,7 @@ export const Overview = () => {
       <Box className="productCard">
         <Card>
           <CardContent>
-            <img src={item.imgUrl} width="500" height="600" />
+            <img src={item.imgUrl} width="250" height="250" />
             <Typography variant="h3">{item.name}</Typography>
             <span>
               {item.numMinted} of {item.supply} sold
