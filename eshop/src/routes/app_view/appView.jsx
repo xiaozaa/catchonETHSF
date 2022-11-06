@@ -30,7 +30,7 @@ export async function loader({ params }) {
 export function AppView() {
   const urlContractAddr = useLoaderData();
   const location = useLocation();
-  const { adminAddr, appMeta } = location.state;
+  const { appMeta } = location.state;
   console.log("appMeta", appMeta);
   if (appMeta.addr.toLowerCase() === urlContractAddr.toLowerCase()) {
     initializeProxyContract(appMeta.addr, appMeta.logicAddress);
@@ -64,7 +64,7 @@ export function AppView() {
                 disablePadding
                 component={NavLink}
                 to={"overview"}
-                state={{ adminAddr: adminAddr, appMeta: appMeta }}
+                state={{ appMeta: appMeta }}
               >
                 <ListItemButton id="appview-sidebar-item">
                   Overview
@@ -74,7 +74,7 @@ export function AppView() {
                 disablePadding
                 component={NavLink}
                 to={"support"}
-                state={{ adminAddr: adminAddr, appMeta: appMeta }}
+                state={{ appMeta: appMeta }}
               >
                 <ListItemButton id="appview-sidebar-item">
                   Suppport
@@ -84,7 +84,7 @@ export function AppView() {
                 disablePadding
                 component={NavLink}
                 to={"Shipping"}
-                state={{ adminAddr: adminAddr, appMeta: appMeta }}
+                state={{ appMeta: appMeta }}
               >
                 <ListItemButton id="appview-sidebar-item">
                   Shipping
@@ -94,7 +94,7 @@ export function AppView() {
           </nav>
         </div>
         <div id="detail">
-          <Outlet context={[adminAddr, appMeta]} />
+          <Outlet context={[appMeta]} />
         </div>
       </div>
     </>

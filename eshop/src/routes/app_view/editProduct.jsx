@@ -39,7 +39,7 @@ export async function action({ request, params }) {
 export function EditProduct() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { adminAddr, appMeta, productInfo } = location.state;
+  const { appMeta, productInfo } = location.state;
 
   console.log("appMeta: ", appMeta);
   console.log("productInfo: ", productInfo);

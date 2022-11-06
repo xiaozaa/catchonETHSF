@@ -68,7 +68,7 @@ export async function loader({ params }) {
 export const Overview = () => {
   const { metaData, itemList, proxyAddr } = useLoaderData();
   const location = useLocation();
-  const { adminAddr, appMeta } = location.state;
+  const { appMeta } = location.state;
 
   console.log("Overview contract", proxyAddr);
   console.log("Item list: ", itemList);
@@ -116,7 +116,7 @@ export const Overview = () => {
         component={NavLink}
         id={"add-product-button"}
         to={"../addProduct"}
-        state={{ adminAddr: adminAddr, appMeta: appMeta, proxyAddr: proxyAddr }}
+        state={{ appMeta: appMeta, proxyAddr: proxyAddr }}
       >
         Add
       </Button>
@@ -148,7 +148,6 @@ export const Overview = () => {
                     component={NavLink}
                     to={`../detail/${row.id}`}
                     state={{
-                      adminAddr: adminAddr,
                       appMeta: appMeta,
                       productInfo: row,
                     }}
