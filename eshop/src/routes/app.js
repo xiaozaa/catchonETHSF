@@ -1,4 +1,4 @@
-import { useLoaderData, NavLink } from "react-router-dom";
+import { useLoaderData, NavLink, Outlet } from "react-router-dom";
 import { Button } from "@mui/material";
 
 import { getAppListData as getMockAppListData } from "../mockdata/mockData";
@@ -14,23 +14,15 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
-import { Outlet, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 // import { ENABLE_MOCK } from "../utils/constants";
 // import Button from "@mui/material/Button";
 
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { initProxyContract } from "../utils/reafactored_util/wallet/wallet";
-import assert from "assert";
-
-// import Tabs from '@mui/material/Tabs';
-// import Tab from '@mui/material/Tab';
-// import Typography from '@mui/material/Typography';
-// import Box from '@mui/material/Box';
-import BasicTabs from "../utils/tabs.jsx";
 
 import "../css/applist.css";
 import "../css/app.css";
@@ -71,6 +63,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 async function getData() {
   var appData;
   let userAddr;
+  const productInfoList = [];
   if (ENABLE_MOCK) {
     appData = getMockAppListData();
     userAddr = "0x7aAaA1e9EE5Aa1fA329975DaDdEa56437a2B6B18";
@@ -85,41 +78,39 @@ async function getData() {
       })
     );
     console.log("applist", appList);
-    if (appList.length) {
-      await initializeProxyContract(appData[0].addr, appData[0].logicAddress);
-      const proxyAddr = appData[0].addr;
-      // const productIdList = await getItemIdList(proxyAddr);
-      // console.log("productIdList: ", productIdList);
+    await initializeProxyContract(appData[0].addr, appData[0].logicAddress);
+    const proxyAddr = appData[0].addr;
+    const productIdList = await getItemIdList(proxyAddr);
+    console.log("productIdList: ", productIdList);
 
-      // const productInfoList = [];
-      // for (const productId in productIdList) {
-      //   const name = await getNameOf(productId, proxyAddr);
-      //   console.log("name: ", name);
-      //   const supply = await getSupplyOf(productId, proxyAddr);
-      //   console.log("supply: ", supply);
-      //   const balance = await getBalanceOf(productId, proxyAddr);
-      //   console.log("balance: ", balance);
-      //   const salesAmount = await getSalesAmountOf(productId, proxyAddr);
-      //   console.log("salesAmount: ", salesAmount);
-      //   const numMinted = await getNumMinted(productId, proxyAddr);
-      //   console.log("numMinted: ", numMinted);
-      //   const imgUrl = await getImgUrl(productId, proxyAddr);
-      //   console.log("imgUrl: ", imgUrl);
-      //   productInfoList.push({
-      //     name: name,
-      //     supply: supply,
-      //     balance: balance,
-      //     numMinted: numMinted,
-      //     salesAmount: salesAmount,
-      //     id: productId,
-      //     imgUrl: imgUrl,
-      //   });
-      // }
-      // console.log("productInfoList: ", productInfoList);
+    for (const productId in productIdList) {
+      const name = await getNameOf(productId, proxyAddr);
+      console.log("name: ", name);
+      const supply = await getSupplyOf(productId, proxyAddr);
+      console.log("supply: ", supply);
+      const balance = await getBalanceOf(productId, proxyAddr);
+      console.log("balance: ", balance);
+      const salesAmount = await getSalesAmountOf(productId, proxyAddr);
+      console.log("salesAmount: ", salesAmount);
+      const numMinted = await getNumMinted(productId, proxyAddr);
+      console.log("numMinted: ", numMinted);
+      const imgUrl = await getImgUrl(productId, proxyAddr);
+      console.log("imgUrl: ", imgUrl);
+      productInfoList.push({
+        name: name,
+        supply: supply,
+        balance: balance,
+        numMinted: numMinted,
+        salesAmount: salesAmount,
+        id: productId,
+        imgUrl: imgUrl,
+      });
     }
+    console.log("firstProductInfoList: ", productInfoList);
   }
   return {
     appData: appData,
+    firstStoreProductList: productInfoList,
     adminAddr: userAddr,
   };
 }
@@ -138,22 +129,23 @@ async function initializeProxyContract(proxyAddr, logicAddr) {
   }
 }
 
-//   export async function loader({ params }) {
-//     return params.proxyAddress;
-//   }
-
 export async function loader() {
   return await getData();
 }
 
 export const App = () => {
-  const { appData, adminAddr } = useLoaderData();
+  const { appData, firstStoreProductList, adminAddr } = useLoaderData();
 
-  console.log("appData: ", appData);
+  console.log("Got appData: ", appData);
+  console.log("Got firstStoreProductList: ", firstStoreProductList);
 
   const urlContractAddr = useLoaderData();
   const location = useLocation();
   const appMeta = appData[0];
+  for (let appMeta of appData) {
+    console.log("appMeta", appMeta);
+    initializeProxyContract(appMeta.addr, appMeta.logicAddress);
+  }
 
   //TODO: repeat code in utils
   const abbreviateAddr = (addr) => {
@@ -189,69 +181,21 @@ export const App = () => {
           <div id="sidebar">
             <nav>
               <List>
-                <ListItem
-                  disablePadding
-                  component={NavLink}
-                  to={"overview"}
-                  state={{ adminAddr: adminAddr, appMeta: appMeta }}
-                >
-                  <ListItemButton id="appview-sidebar-item">
-                    GreekSneaker
-                  </ListItemButton>
-                </ListItem>
-                <ListItem
-                  disablePadding
-                  component={NavLink}
-                  to={"support"}
-                  state={{ adminAddr: adminAddr, appMeta: appMeta }}
-                >
-                  <ListItemButton id="appview-sidebar-item">
-                    Supreme II
-                  </ListItemButton>
-                </ListItem>
-                <ListItem
-                  disablePadding
-                  component={NavLink}
-                  to={"Shipping"}
-                  state={{ adminAddr: adminAddr, appMeta: appMeta }}
-                >
-                  <ListItemButton id="appview-sidebar-item">
-                    <Button
-                      component={NavLink}
-                      id={"create-button"}
-                      to={"/app-create"}
-                      state={{ adminAddr: adminAddr }}
-                    >
-                      NEW STORE
-                    </Button>
-                  </ListItemButton>
-                </ListItem>
+                {appData.map((row, index) => (
+                  <ListItem
+                    disablePadding
+                    component={NavLink}
+                    to={`view/${row.addr}/overview`}
+                    state={{ adminAddr: adminAddr, appMeta: appMeta }}
+                  >
+                    <Button id="appview-sidebar-item">{row.name}</Button>
+                  </ListItem>
+                ))}
               </List>
             </nav>
           </div>
           <div id="detail">
-            <BasicTabs />
-            {/* <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-              <Tabs
-                value={value}
-                onChange={handleChange}
-                aria-label="basic tabs example"
-              >
-                <Tab label="Item One" {...a11yProps(0)} />
-                <Tab label="Item Two" {...a11yProps(1)} />
-                <Tab label="Item Three" {...a11yProps(2)} />
-              </Tabs>
-            </Box>
-            <TabPanel value={value} index={0}>
-              Item One
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-              Item Two
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-              Item Three
-            </TabPanel> */}
-            <Outlet context={[adminAddr, appMeta]} />
+            <Outlet />
           </div>
         </div>
       </div>

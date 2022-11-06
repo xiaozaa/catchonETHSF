@@ -36,6 +36,46 @@ const router = createBrowserRouter([
     path: "/app",
     element: <App />,
     loader: AppLoader,
+    children: [
+      {
+        path: "view/:proxyAddress",
+        element: <AppView />,
+        loader: appViewLoader,
+        children: [
+          { index: true, element: <Index /> },
+          {
+            path: "overview",
+            element: <Overview />,
+            loader: overViewLoader,
+          },
+          {
+            path: "detail/:id",
+            element: <ProductDetail />,
+          },
+
+          {
+            path: "edit/:id",
+            element: <EditProduct />,
+          },
+
+          {
+            path: "addProduct",
+            element: <AddProduct />,
+            action: addProductAction,
+          },
+
+          {
+            path: "support",
+            element: <Support />,
+          },
+          {
+            path: "shipping",
+            element: <Shipping />,
+            loader: ShippingLoader,
+          },
+        ],
+      },
+    ],
   },
   {
     path: "/applist",
