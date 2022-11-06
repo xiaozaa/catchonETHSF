@@ -3,10 +3,13 @@ import top from "./script-top.png";
 import bottom from "./script-bottom.png";
 import { CodeBlock, dracula } from "react-code-blocks";
 import { Button } from "@mui/material";
+import { useLocation } from "react-router-dom";
 
 export function Integration() {
-  const code =
-    '<script src="https://catchon-ethsf.vercel.app/static/js/main.js">\n</script><link href="https://catchon-ethsf.vercel.app/static/css/main.css" rel="stylesheet">';
+  const location = useLocation();
+  const { adminAddr, appMeta } = location.state;
+  const code = `<script> CONTRACT_ADDRESS = "${appMeta.addr}"\nLOGIC_ADDRESS = "${appMeta.logicAddress}"\nIS_TESTNET = true \n</script> \
+    <script src="https://catchon-ethsf-kxj7blfz1-catchon-labs.vercel.app/static/js/main.js">\n</script><link href="https://catchon-ethsf-kxj7blfz1-catchon-labs.vercel.app/static/css/main.css" rel="stylesheet">`;
   console.log("dracula: ", dracula);
   return (
     <>

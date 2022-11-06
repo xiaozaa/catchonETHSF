@@ -6,7 +6,6 @@ import {
   TableContainer,
   TableRow,
   TableBody,
-  TableHead,
   Divider,
   Button,
   Card,
@@ -120,47 +119,6 @@ export const Overview = () => {
       >
         Add
       </Button>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Supply</TableCell>
-              <TableCell align="right">Balance</TableCell>
-              <TableCell align="right">Sales</TableCell>
-              <TableCell align="right">Detail</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {itemList.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="right">{row.supply}</TableCell>
-                <TableCell align="right">{row.balance}</TableCell>
-                <TableCell align="right">{row.salesAmount}</TableCell>
-                <TableCell align="right">
-                  <Button
-                    component={NavLink}
-                    to={`../detail/${row.id}`}
-                    state={{
-                      adminAddr: adminAddr,
-                      appMeta: appMeta,
-                      productInfo: row,
-                    }}
-                  >
-                    explore
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
 
       <div className="cards-holder"> {displayCards} </div>
     </>
