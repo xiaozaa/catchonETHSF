@@ -157,7 +157,7 @@ export const Overview = () => {
         </Table>
       </TableContainer>
 
-      <div> {displayCards} </div>
+      <div className="cards-holder"> {displayCards} </div>
     </>
   );
 };
