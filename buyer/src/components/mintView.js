@@ -26,14 +26,14 @@ export const MintView = ({ setStep, proof, info, setTxHash, tokenId }) => {
         <div>
             <CardContent>
                 <div className="cardWrapper">
-                    <PlusMinusButton count={quantity} purchaseLimit={Number(info.stock)} setCount={setQuantity} />
+                    <PlusMinusButton count={quantity} purchaseLimit={Number(5)} setCount={setQuantity} />
                     <Typography>
                         Total price: {convertWeiToETH((Number(info.price) * quantity).toString())}ETH
                     </Typography>
                     <Button variant="outlined" onClick={async () => {
                         setTxnStatus("Waiting for approval");
                         const userAddr = await getWalletAddress();
-                        const txn = await setProxyMint(window.CONTRACT_ADDRESS, userAddr, tokenId, quantity, proof);
+                        const txn = await setProxyMint(window.CONTRACT_ADDRESS, tokenId, quantity);
                         setTxnStatus("LOADING");
                         console.log("CREATE txn", txn)
                         txnStatusChecker(txn, setTxnStatus);

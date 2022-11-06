@@ -24,6 +24,7 @@ export function AddProduct() {
   const [description, setDescription] = useState("Product description");
   const [supply, setSupply] = useState("Product supply");
   const [imgUrl, setImgUrl] = useState("http://exampleImage.com");
+  const [price, setPrice] = useState(null);
 
   console.log("appMeta: ", appMeta);
   console.log("proxyAddr: ", proxyAddr);
@@ -42,7 +43,7 @@ export function AddProduct() {
     const tokenUrl = await uploadJsonToIpfs(formObj);
     console.log("Token URL: ", tokenUrl);
     console.log(`Add product: ${supply}, ${tokenUrl}, ${proxyAddr}`);
-    await addProduct(supply, tokenUrl, proxyAddr);
+    await addProduct(supply, price, tokenUrl, proxyAddr);
 
     navigate(-1);
   };
@@ -77,6 +78,15 @@ export function AddProduct() {
             placeholder="Product Supply"
             value={supply}
             onChange={(e) => setSupply(e.target.value)}
+          />
+        </label>
+        <label>
+          <span>Price</span>
+          <input
+            type="text"
+            placeholder="Price"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
           />
         </label>
         <label>
