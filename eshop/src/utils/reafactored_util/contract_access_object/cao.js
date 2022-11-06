@@ -114,6 +114,6 @@ const gasOptimizedFunctionCall = async (contractAddr, funcSig, value) => {
   }
 };
 
-const fetchContractObjAt = (contractAddr) => {
+export const fetchContractObjAt = (contractAddr) => {
   return fetchContractObjByAddr(contractAddr);
 };
