@@ -138,7 +138,7 @@ export function AppCreate() {
                       tokenSymb,
                       collectionSize
                     );
-                    setTxnStatus("Currently loading...");
+                    setTxnStatus("In progress...");
                     console.log("CREATE txn", txn);
                     txnStatusChecker(txn, setTxnStatus);
                   } else if (storeType === "ESTORE") {
@@ -147,7 +147,7 @@ export function AppCreate() {
                       tokenName,
                       tokenSymb
                     );
-                    setTxnStatus("Currently loading...");
+                    setTxnStatus("In progress...");
                     console.log("CREATE txn", txn);
                     txnStatusChecker(txn, setTxnStatus);
                   }
@@ -163,7 +163,7 @@ export function AppCreate() {
                   navigate(-1);
                 }}
               >
-                Cancel
+                Back
               </Button>
             </div>
             <Typography>{txnStatus}</Typography>

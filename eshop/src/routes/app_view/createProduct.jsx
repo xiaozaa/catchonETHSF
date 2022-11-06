@@ -13,7 +13,7 @@ import {
   createECOMERCEProxy,
   createERC721Proxy,
 } from "../../utils/reafactored_util/contract_access_object/writerCao";
-import { txnStatusChecker } from "./componentHelper";
+import { txnStatusChecker } from "../componentHelper";
 
 // export async function action({ request, params }) {
 //   const formData = await request.formData();
@@ -164,7 +164,7 @@ export function CreateProduct() {
                       imageURL,
                       description
                     );
-                    setTxnStatus("Currently loading...");
+                    setTxnStatus("In progress...");
                     console.log("CREATE txn", txn);
                     txnStatusChecker(txn, setTxnStatus);
                   } else if (productType === "ESTORE") {
@@ -175,7 +175,7 @@ export function CreateProduct() {
                       imageURL,
                       description
                     );
-                    setTxnStatus("Currently loading...");
+                    setTxnStatus("In progress...");
                     console.log("CREATE txn", txn);
                     txnStatusChecker(txn, setTxnStatus);
                   }
@@ -191,7 +191,7 @@ export function CreateProduct() {
                   navigate(-1);
                 }}
               >
-                Cancel
+                Back
               </Button>
             </div>
             <Typography>{txnStatus}</Typography>

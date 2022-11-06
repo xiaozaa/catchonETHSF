@@ -42,9 +42,9 @@ export const LandPage = () => {
         </div>
       </div>
       <div className="banner">
-        <span className="line-one">CatchOn</span>
+        <span className="line-one">CATCHON</span>
         <br />
-        <span className="line-two">No-code solution for</span>
+        <span className="line-two">No-Code Solution for</span>
         <br />
         <span className="line-two">NFT eCommerce</span>
       </div>

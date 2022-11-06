@@ -164,7 +164,7 @@ export function ProductCreate() {
                       imageURL,
                       description
                     );
-                    setTxnStatus("Currently loading...");
+                    setTxnStatus("In progress...");
                     console.log("CREATE txn", txn);
                     txnStatusChecker(txn, setTxnStatus);
                   } else if (productType === "ESTORE") {
@@ -175,7 +175,7 @@ export function ProductCreate() {
                       imageURL,
                       description
                     );
-                    setTxnStatus("Currently loading...");
+                    setTxnStatus("In progress...");
                     console.log("CREATE txn", txn);
                     txnStatusChecker(txn, setTxnStatus);
                   }
@@ -191,7 +191,7 @@ export function ProductCreate() {
                   navigate(-1);
                 }}
               >
-                Cancel
+                Back
               </Button>
             </div>
             <Typography>{txnStatus}</Typography>

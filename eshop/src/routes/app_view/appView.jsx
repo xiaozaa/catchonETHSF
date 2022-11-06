@@ -7,6 +7,7 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArchitectureRoundedIcon from "@mui/icons-material/ArchitectureRounded";
 import { initProxyContract } from "../../utils/reafactored_util/wallet/wallet";
 import { ECOMERCE_CONTRACT_ADDRESS } from "../../utils/reafactored_util/wallet/abiHelper";
 
@@ -48,19 +49,26 @@ export function AppView() {
   };
   //console.log(metaData);
   return (
-    <>
-      <Button component={NavLink} to={"/applist"}>
-        <ArrowBackIcon />
-        STORE LIST
-      </Button>
-      <div id="view-top">
-        <h3> {`${appMeta.name}: ${abbreviateAddr(appMeta.addr)}`} </h3>
-      </div>
+    <div className="view-shift">
+      {/* <div classNAme="view-header">
+        <Button className="right-move" component={NavLink} to={"/applist"}>
+          STORE LIST
+          <ArchitectureRoundedIcon />
+        </Button>
+        <div className="right-move" id="view-top">
+          <h3> {`${appMeta.name}: ${abbreviateAddr(appMeta.addr)}`} </h3>
+        </div>
+      </div> */}
       <div id="viewContainer">
-        <div id="sidebar">
+        <div id="viewSidebar">
           <nav>
             <Box
-              sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+              sx={{
+                position: "absolute",
+                top: 50,
+                left: 250,
+                bgcolor: "background.paper",
+              }}
             >
               <List component={Stack} direction="row">
                 <ListItem
@@ -70,7 +78,7 @@ export function AppView() {
                   state={{ adminAddr: adminAddr, appMeta: appMeta }}
                 >
                   <ListItemButton id="appview-sidebar-item">
-                    Products (#)
+                    Products
                   </ListItemButton>
                 </ListItem>
                 <ListItem
@@ -90,7 +98,7 @@ export function AppView() {
                   state={{ adminAddr: adminAddr, appMeta: appMeta }}
                 >
                   <ListItemButton id="appview-sidebar-item">
-                    Shipping
+                    Redeemed
                   </ListItemButton>
                 </ListItem>
                 <ListItem
@@ -107,10 +115,10 @@ export function AppView() {
             </Box>
           </nav>
         </div>
-        <div id="detail">
-          <Outlet context={[adminAddr, appMeta]} />
-        </div>
       </div>
-    </>
+      <div id="detail">
+        <Outlet context={[adminAddr, appMeta]} />
+      </div>
+    </div>
   );
 }

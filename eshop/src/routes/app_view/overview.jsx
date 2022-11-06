@@ -77,15 +77,22 @@ export const Overview = () => {
     return (
       <Box className="productCard">
         <Card>
-          <CardContent>
-            <img src={item.imgUrl} width="250" height="250" />
-            <Typography variant="h3">{item.name}</Typography>
-            <span>
-              {item.numMinted} of {item.supply} sold
-            </span>
+          <CardContent sx={{ borderRadius: 20 }}>
+            <img
+              sx={{ borderRadius: 5 }}
+              src={item.imgUrl}
+              width="333"
+              height="333"
+            />
+            <div sx={{ margin: 10 }}>
+              <Typography variant="h3">{item.name}</Typography>
+              <span>
+                {item.numMinted} of {item.supply} sold
+              </span>
+            </div>
           </CardContent>
           <CardActions>
-            <Button>share</Button>
+            <Button sx={{ textAlign: "right", color: "red" }}>Remove</Button>
           </CardActions>
         </Card>
       </Box>
@@ -94,73 +101,17 @@ export const Overview = () => {
 
   return (
     <>
-      <h2>Overview</h2>
-      <div>
-        <TableContainer component={Paper}>
-          <Table aria-label="simple table">
-            <TableBody>
-              <TableRow>
-                <TableCell align="right">Store</TableCell>
-                <TableCell align="left">{metaData.name}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell align="right">Create Time</TableCell>
-                <TableCell align="left">{metaData.createTime}</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </div>
-      <Divider></Divider>
+      {/* <h2>Overview</h2> */}
       <Button
         component={NavLink}
         id={"add-product-button"}
+        className="add-new-product"
+        sx={{ fontWeight: "bold" }}
         to={"../addProduct"}
         state={{ adminAddr: adminAddr, appMeta: appMeta, proxyAddr: proxyAddr }}
       >
-        Add
+        Create Product
       </Button>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Supply</TableCell>
-              <TableCell align="right">Balance</TableCell>
-              <TableCell align="right">Sales</TableCell>
-              <TableCell align="right">Detail</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {itemList.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.name}
-                </TableCell>
-                <TableCell align="right">{row.supply}</TableCell>
-                <TableCell align="right">{row.balance}</TableCell>
-                <TableCell align="right">{row.salesAmount}</TableCell>
-                <TableCell align="right">
-                  <Button
-                    component={NavLink}
-                    to={`../detail/${row.id}`}
-                    state={{
-                      adminAddr: adminAddr,
-                      appMeta: appMeta,
-                      productInfo: row,
-                    }}
-                  >
-                    explore
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
 
       <div className="cards-holder"> {displayCards} </div>
     </>

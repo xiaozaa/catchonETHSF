@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { uploadJsonToIpfs } from "./editProduct";
 import { addProduct } from "../../utils/reafactored_util/contract_access_object/eStore/writerCao";
+import { CreateProduct } from "./createProduct";
 
 export async function action({ request, params }) {
   const formData = await request.formData();
@@ -20,7 +21,7 @@ export function AddProduct() {
   const location = useLocation();
   const { adminAddr, appMeta, proxyAddr } = location.state;
 
-  const [name, setName] = useState("product name");
+  const [name, setName] = useState("Product name");
   const [description, setDescription] = useState("Product description");
   const [supply, setSupply] = useState("Product supply");
   const [imgUrl, setImgUrl] = useState("http://exampleImage.com");
@@ -49,69 +50,80 @@ export function AddProduct() {
   };
 
   return (
-    <>
-      <h1>Adding a product!</h1>
+    <div className="black-border">
+      <h1 id="create-product">Create product</h1>
 
       <form onSubmit={handleSubmit}>
-        <p>
-          <span>Name</span>
+        <label>
+          <span>Product name</span>
+          <br />
           <input
-            placeholder="Product Name"
+            placeholder=""
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-        </p>
-        <label>
-          <span>Description</span>
-          <input
-            type="text"
-            placeholder="Product Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
+          <br />
         </label>
         <label>
-          <span>Supply</span>
+          <span>Total supply</span>
+          <br />
           <input
             type="text"
-            placeholder="Product Supply"
+            placeholder=""
             value={supply}
             onChange={(e) => setSupply(e.target.value)}
           />
+          <br />
         </label>
         <label>
-          <span>Price</span>
+          <span>Price per item</span>
+          <br />
           <input
             type="text"
-            placeholder="Price"
+            placeholder=""
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
+          <br />
         </label>
         <label>
-          <span>Image</span>
+          <span>Image URL</span>
+          <br />
           <input
-            placeholder="Img URL"
+            placeholder=""
             aria-label="Avatar URL"
             type="text"
             value={imgUrl}
             onChange={(e) => setImgUrl(e.target.value)}
           />
+          <br />
+        </label>
+        <label>
+          <span>Description</span>
+          <br />
+          <input
+            type="text"
+            placeholder=""
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+          <br />
         </label>
         <p>
-          <button type="submit">Save</button>
+          <button type="submit">Create</button>
         </p>
       </form>
 
       <Button
         id={"cancle-op-button"}
+        sx={{ fontWeight: "bold", backgroundColor: "black", color: "white" }}
         onClick={() => {
           navigate(-1);
         }}
       >
-        Cancle
+        Back
       </Button>
-    </>
+    </div>
   );
 }

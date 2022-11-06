@@ -1,9 +1,20 @@
 .productCard {
-    width: 400px;
-    height: 400px;
-    background-color: black;
+  width: 330px;
+  height: 330px;
+  background-color: black;
+  border-radius: 20px 20px 10px 10px;
 }
 
 .cards-holder {
-    display: flex;
+  display: flex;
+}
+
+.add-new-product {
+  display: block;
+  margin: 3rem;
+  padding: 2rem;
+}
+
+.MuiCardContent-root {
+  padding: 0;
 }

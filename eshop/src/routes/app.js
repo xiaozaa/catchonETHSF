@@ -4,6 +4,7 @@ import { Button } from "@mui/material";
 import { getAppListData as getMockAppListData } from "../mockdata/mockData";
 
 import { ENABLE_MOCK } from "../utils/constants";
+import { CreateProduct } from "./app_view/createProduct";
 
 import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
@@ -33,9 +34,19 @@ import Main from "../components/main";
 // import Box from '@mui/material/Box';
 import LabTabs from "../components/tabs.js";
 
-import { SlPaypal } from "react-icons/sl";
-import { SlPlus } from "react-icons/sl";
-import { SlLayers } from "react-icons/sl";
+import {
+  SlSpeedometer,
+  SlMap,
+  SlLayers,
+  SlEvent,
+  SlPaypal,
+  SlPlus,
+  SlVector,
+} from "react-icons/sl";
+// import { SlEvent } from "react-icons/sl";
+// import { SlPaypal } from "react-icons/sl";
+// import { SlPlus } from "react-icons/sl";
+// import { SlLayers } from "react-icons/sl";
 
 import "../css/applist.css";
 import "../css/app.css";
@@ -171,7 +182,7 @@ export const App = () => {
 
   return (
     <div>
-      <div className="app-list-top-container">
+      <div className="hidden app-list-top-container">
         <nav>
           {appData.length ? (
             <>
@@ -190,7 +201,7 @@ export const App = () => {
                               sz={{ textTransform: "unset" }}
                               className="button-unset"
                               component={NavLink}
-                              to={`/appview/${row.addr}`}
+                              to={`/app/view/${row.addr}/overview`}
                               state={{
                                 adminAddr: adminAddr,
                                 appMeta: row,
@@ -213,7 +224,7 @@ export const App = () => {
                         </StyledTableCell> */}
                         </StyledTableRow>
                       ))}
-                      <StyledTableRow>
+                      <StyledTableRow key="addStore" className={"app-list-row"}>
                         <StyledTableCell>
                           <SlPlus />
                           <Button
@@ -239,14 +250,21 @@ export const App = () => {
           ethereum <SlLayers /> address
         </h4>
       </div>
-      <div>
+      {/* <div>
         <Main />
-      </div>
+      </div> */}
 
       <div className="select-app">
         <Button component={NavLink} to={"/applist"}>
-          <ArrowBackIcon />
-          <span className="directory">Directory</span>
+          <span sx={{ fontSize: "2rem", padding: 20 }} className="directory">
+            <SlSpeedometer />
+            &nbsp;
+            <span
+              sx={{ marginLeft: 10, fontSize: "3rem", fontWeight: "bolder" }}
+            >
+              Dashboard
+            </span>
+          </span>
         </Button>
         <div id="view-top">
           <h3> {`${appMeta.name}: ${abbreviateAddr(appMeta.addr)}`} </h3>
@@ -257,65 +275,45 @@ export const App = () => {
               <List>
                 {appData.map((row, index) => (
                   <ListItem
-                    disablePadding
+                    key={row.name}
+                    sz={{ textTransform: "unset" }}
+                    className="listItem button-unset"
+                    // disablePadding
                     component={NavLink}
                     to={`view/${row.addr}/overview`}
                     state={{ adminAddr: adminAddr, appMeta: appMeta }}
                   >
-                    <Button id="appview-sidebar-item">{row.name}</Button>
+                    <SlMap />
+                    <Button
+                      sz={{ textTransform: "unset" }}
+                      id="appview-sidebar-item"
+                      className="listItem button-unset"
+                    >
+                      {row.name}
+                    </Button>
                   </ListItem>
                 ))}
+                <ListItem>
+                  <SlPlus />
+                  <Button
+                    className="bold-font"
+                    component={NavLink}
+                    id={"create-button"}
+                    to={"/app-create"}
+                    state={{ adminAddr: adminAddr }}
+                  >
+                    Create Store
+                  </Button>
+                </ListItem>
               </List>
             </nav>
           </div>
           <div id="detail">
-            <Outlet />
+            {/* <Outlet /> */}
+            {appData.length ? <Outlet /> : <CreateProduct />}
           </div>
         </div>
       </div>
-      <nav>
-        {appData.length ? (
-          <>
-            <div>
-              <TableContainer component={Paper}>
-                <Table sx={{ maxWidth: 100 }} aria-label="customized table">
-                  <TableBody>
-                    {appData.map((row, index) => (
-                      <StyledTableRow key={row.name} className={"app-list-row"}>
-                        <StyledTableCell component="th" scope="row">
-                          <Button
-                            component={NavLink}
-                            to={`/appview/${row.addr}`}
-                            state={{
-                              adminAddr: adminAddr,
-                              appMeta: row,
-                            }}
-                          >
-                            {row.name}
-                          </Button>
-                        </StyledTableCell>
-                        {/* <StyledTableCell align="right">
-                          {row.addr}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          {new Date(
-                            parseInt(row.createTime) * 1000
-                          ).toLocaleString()}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">
-                          {row.logicAddress}
-                        </StyledTableCell> */}
-                      </StyledTableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </div>
-          </>
-        ) : (
-          <dev>Whoops, no apps</dev>
-        )}
-      </nav>
     </div>
   );
 };

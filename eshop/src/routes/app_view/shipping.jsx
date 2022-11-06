@@ -66,7 +66,7 @@ export function Shipping() {
 
   return (
     <>
-      <h1>This is Shipping of Proxy Address: {proxyAddr}!</h1>
+      <h2>NFT Proxy Address for Shipping: {proxyAddr}!</h2>
 
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
