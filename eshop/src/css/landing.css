@@ -1,5 +1,7 @@
 body {
-  /* background-color: #1c1f2f; */
+  background-image: url("./../image/landing-base.png");
+  background-size: cover;
+  font-family: Roboto;
 }
 
 .banner {
