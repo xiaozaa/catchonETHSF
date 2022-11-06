@@ -35,17 +35,14 @@ export const AddressView = ({ setStep, tokenId, burnt }) => {
                                 console.log("AddressData", dataFromDb);
                                 var body = "";
                                 if (dataFromDb) {
-
-                                    if (dataFromDb.isArray()) {
-                                        dataFromDb.push({
-                                            WalletAddress: walletAddress,
-                                            Address: address,
-                                            TokenId: tokenId,
-                                            ContractAddr: window.CONTRACT_ADDRESS,
-                                            Redeemed: burnt
-                                        })
-                                        body = JSON.stringify({ AddressData: dataFromDb });
-                                    }
+                                    dataFromDb.push({
+                                        WalletAddress: walletAddress,
+                                        Address: address,
+                                        TokenId: tokenId,
+                                        ContractAddr: window.CONTRACT_ADDRESS,
+                                        Redeemed: burnt
+                                    })
+                                    body = JSON.stringify({ AddressData: dataFromDb });
                                 }
                                 else {
                                     body = JSON.stringify({
