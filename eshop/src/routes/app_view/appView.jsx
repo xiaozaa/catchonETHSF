@@ -73,16 +73,6 @@ export function AppView() {
               <ListItem
                 disablePadding
                 component={NavLink}
-                to={"support"}
-                state={{ adminAddr: adminAddr, appMeta: appMeta }}
-              >
-                <ListItemButton id="appview-sidebar-item">
-                  Suppport
-                </ListItemButton>
-              </ListItem>
-              <ListItem
-                disablePadding
-                component={NavLink}
                 to={"Shipping"}
                 state={{ adminAddr: adminAddr, appMeta: appMeta }}
               >
