@@ -36,10 +36,15 @@ export async function loader({ params }) {
   const productInfoList = [];
   for (const productId in productIdList) {
     const name = await getNameOf(productId, proxyAddr);
+    console.log("name: ", name);
     const supply = await getSupplyOf(productId, proxyAddr);
+    console.log("supply: ", supply);
     const balance = await getBalanceOf(productId, proxyAddr);
+    console.log("balance: ", balance);
     const salesAmount = await getSalesAmountOf(productId, proxyAddr);
+    console.log("salesAmount: ", salesAmount);
     const numMinted = await getNumMinted(productId, proxyAddr);
+    console.log("numMinted: ", numMinted);
     const imgUrl = await getImgUrl(productId, proxyAddr);
     console.log("imgUrl: ", imgUrl);
     productInfoList.push({
