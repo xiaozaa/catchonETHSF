@@ -1,7 +1,8 @@
 import { Outlet, useLoaderData, NavLink, useLocation } from "react-router-dom";
 import { ENABLE_MOCK } from "../../utils/constants";
 import Button from "@mui/material/Button";
-
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -50,7 +51,7 @@ export function AppView() {
     <>
       <Button component={NavLink} to={"/applist"}>
         <ArrowBackIcon />
-        Apps
+        STORE LIST
       </Button>
       <div id="view-top">
         <h3> {`${appMeta.name}: ${abbreviateAddr(appMeta.addr)}`} </h3>
@@ -58,48 +59,52 @@ export function AppView() {
       <div id="viewContainer">
         <div id="sidebar">
           <nav>
-            <List>
-              <ListItem
-                disablePadding
-                component={NavLink}
-                to={"overview"}
-                state={{ adminAddr: adminAddr, appMeta: appMeta }}
-              >
-                <ListItemButton id="appview-sidebar-item">
-                  Overview
-                </ListItemButton>
-              </ListItem>
-              <ListItem
-                disablePadding
-                component={NavLink}
-                to={"support"}
-                state={{ adminAddr: adminAddr, appMeta: appMeta }}
-              >
-                <ListItemButton id="appview-sidebar-item">
-                  Suppport
-                </ListItemButton>
-              </ListItem>
-              <ListItem
-                disablePadding
-                component={NavLink}
-                to={"Shipping"}
-                state={{ adminAddr: adminAddr, appMeta: appMeta }}
-              >
-                <ListItemButton id="appview-sidebar-item">
-                  Shipping
-                </ListItemButton>
-              </ListItem>
-              <ListItem
-                disablePadding
-                component={NavLink}
-                to={"integration"}
-                state={{ adminAddr: adminAddr, appMeta: appMeta }}
-              >
-                <ListItemButton id="appview-sidebar-item">
-                  Integration
-                </ListItemButton>
-              </ListItem>
-            </List>
+            <Box
+              sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+            >
+              <List component={Stack} direction="row">
+                <ListItem
+                  disablePadding
+                  component={NavLink}
+                  to={"overview"}
+                  state={{ adminAddr: adminAddr, appMeta: appMeta }}
+                >
+                  <ListItemButton id="appview-sidebar-item">
+                    Products (#)
+                  </ListItemButton>
+                </ListItem>
+                <ListItem
+                  disablePadding
+                  component={NavLink}
+                  to={"support"}
+                  state={{ adminAddr: adminAddr, appMeta: appMeta }}
+                >
+                  <ListItemButton id="appview-sidebar-item">
+                    Buyers
+                  </ListItemButton>
+                </ListItem>
+                <ListItem
+                  disablePadding
+                  component={NavLink}
+                  to={"Shipping"}
+                  state={{ adminAddr: adminAddr, appMeta: appMeta }}
+                >
+                  <ListItemButton id="appview-sidebar-item">
+                    Shipping
+                  </ListItemButton>
+                </ListItem>
+                <ListItem
+                  disablePadding
+                  component={NavLink}
+                  to={"integration"}
+                  state={{ adminAddr: adminAddr, appMeta: appMeta }}
+                >
+                  <ListItemButton id="appview-sidebar-item">
+                    Integration
+                  </ListItemButton>
+                </ListItem>
+              </List>
+            </Box>
           </nav>
         </div>
         <div id="detail">
