@@ -7,7 +7,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { initProxyContract } from "../../utils/reafactored_util/wallet/wallet";
-import assert from "assert";
+import { ECOMERCE_CONTRACT_ADDRESS } from "../../utils/reafactored_util/wallet/abiHelper";
 
 async function initializeProxyContract(proxyAddr, logicAddr) {
   if (ENABLE_MOCK) {
@@ -24,19 +24,18 @@ async function initializeProxyContract(proxyAddr, logicAddr) {
 }
 
 export async function loader({ params }) {
+  const appMeta = {};
+  appMeta.addr = params.proxyAddress;
+  appMeta.logicAddress = ECOMERCE_CONTRACT_ADDRESS;
+  console.log("appMeta", appMeta);
+  await initializeProxyContract(appMeta.addr, appMeta.logicAddress);
   return params.proxyAddress;
 }
 
 export function AppView() {
   const urlContractAddr = useLoaderData();
   const location = useLocation();
-  const { adminAddr, appMeta } = location.state;
-  console.log("appMeta", appMeta);
-  if (appMeta.addr.toLowerCase() === urlContractAddr.toLowerCase()) {
-    initializeProxyContract(appMeta.addr, appMeta.logicAddress);
-  } else {
-    assert(0, `Cannot find state for AppView`);
-  }
+  let { adminAddr, appMeta } = location.state;
 
   //TODO: repeat code in utils
   const abbreviateAddr = (addr) => {
