@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button, TextField, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
@@ -149,7 +149,10 @@ export function AppCreate() {
                     );
                     setTxnStatus("Currently loading...");
                     console.log("CREATE txn", txn);
-                    txnStatusChecker(txn, setTxnStatus);
+                    const callback = () => {
+                      navigate("/applist");
+                    };
+                    txnStatusChecker(txn, setTxnStatus, callback);
                   }
                 }}
               >
