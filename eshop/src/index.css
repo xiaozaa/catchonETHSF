@@ -244,3 +244,7 @@ label > span {
 .MuiButtonBase-root-MuiButton-root {
   text-transform: none;
 }
+
+#cancle-op-button:hover {
+  color: black;
+}
